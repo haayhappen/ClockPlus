@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2016 Phillip Hsu
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!-- Wrapped in a CardView to simulate elevation of the main view.
+  - There will be margins around the card on devices that are pre-Lollipop,
+  - and the margin size is proportional to the set cardElevation. As a result, the
+  - default item animation when collapsing/expanding the ViewHolder shows the views
+  - that are common to both VHs (primarily the time text and the on-off switch)
+  - shifting slightly during the transition. We are neglecting this blight because
+  - we don't expect many devices below Lollipop using our app.
+  -->
+<!-- TODO: Write a layout for v21 that instead uses the elevation attribute normally.
+  - You may have to set a non-transparent background on the main view.
+  - Alternatively, just keep the CardView because that takes care of the non-transparent
+  - background issue for free.
+  -->
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="@dimen/expanded_alarm_elevation"
+    app:cardCornerRadius="0dp"
+    app:cardBackgroundColor="?cardBackgroundColor"
+    android:foreground="?selectableItemBackground"
+    android:clickable="true"
+    android:layout_marginTop="@dimen/cardview_margin"
+    android:layout_marginBottom="@dimen/cardview_margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/item_padding_top"
+            android:paddingStart="@dimen/item_padding_start"
+            android:paddingEnd="@dimen/item_padding_end">
+
+            <include layout="@layout/alarm_time_layout"/>
+
+            <LinearLayout
+                android:id="@+id/days"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ToggleButton
+                    android:id="@+id/day0"
+                    style="@style/AlarmDayToggle"/>
+
+                <ToggleButton
+                    android:id="@+id/day1"
+                    style="@style/AlarmDayToggle"/>
+
+                <ToggleButton
+                    android:id="@+id/day2"
+                    style="@style/AlarmDayToggle"/>
+
+                <ToggleButton
+                    android:id="@+id/day3"
+                    style="@style/AlarmDayToggle"/>
+
+                <ToggleButton
+                    android:id="@+id/day4"
+                    style="@style/AlarmDayToggle"/>
+
+                <ToggleButton
+                    android:id="@+id/day5"
+                    style="@style/AlarmDayToggle"/>
+
+                <ToggleButton
+                    android:id="@+id/day6"
+                    style="@style/AlarmDayToggle"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/label"
+                style="@style/BaseLabel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/label_height"
+                android:layout_marginBottom="@dimen/item_margin_between_elements"
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/item_margin_between_elements">
+
+                <Button
+                    android:id="@+id/ringtone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="Ringtone"
+                    android:gravity="center_vertical"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="@dimen/text_size_medium"
+                    android:drawableStart="@drawable/ic_ringtone_24dp"
+                    android:drawablePadding="@dimen/text_compound_drawable_padding"/>
+
+                <com.philliphsu.clock2.alarms.ui.TempCheckableImageButton
+                    android:id="@+id/vibrate"
+                    style="@style/AlarmVibrateToggle"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/dismiss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dismiss_now"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_marginBottom="@dimen/item_margin_between_elements"
+                android:drawablePadding="@dimen/text_compound_drawable_padding"
+                android:paddingEnd="@dimen/button_text_right_padding"/>
+
+        </LinearLayout>
+
+        <View style="@style/Divider.Horizontal"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:text="@string/delete"/>
+
+            <Button
+                android:id="@+id/ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:text="@android:string/ok"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

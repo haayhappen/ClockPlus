@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2016 Phillip Hsu
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!-- Wrapped in a LL so the divider is full width.
+ The RelativeLayout defines padding for all children, so the
+ divider would be padded too. -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="?selectableItemBackground">
+
+    <!-- We could ALMOST get rid of this, if not for the
+    AlarmCountdown needing to be anchored to the left of
+    the label. -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/item_padding_top"
+        android:paddingStart="@dimen/item_padding_start"
+        android:paddingEnd="@dimen/item_padding_end">
+
+        <include layout="@layout/alarm_time_layout"/>
+
+        <TextView
+            android:id="@+id/label"
+            style="@style/BaseLabel"
+            android:hint=""
+            android:textStyle="bold"
+            android:layout_below="@id/time_layout"
+            android:layout_marginBottom="@dimen/item_margin_between_elements"/>
+
+        <com.philliphsu.clock2.alarms.ui.AlarmCountdown
+            android:id="@+id/countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_subhead"
+            android:layout_marginStart="@dimen/item_margin_between_elements"
+            android:layout_below="@id/time_layout"
+            android:layout_toEndOf="@id/label"/>
+
+        <TextView
+            android:id="@+id/recurring_days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mon, Tue, Wed, Thu, Fri, Sat, Sun"
+            android:layout_below="@id/label"
+            android:layout_marginBottom="@dimen/item_margin_between_elements"/>
+
+        <!-- The drawable is added programmatically -->
+        <Button
+            android:id="@+id/dismiss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recurring_days"
+            android:text="@string/dismiss_now"
+            android:drawablePadding="@dimen/text_compound_drawable_padding"
+            android:paddingEnd="@dimen/button_text_right_padding"
+            style="@style/Widget.AppCompat.Button.Colored"/>
+
+    </RelativeLayout>
+
+    <View style="@style/Divider.Horizontal"
+          android:layout_marginTop="@dimen/item_margin_between_elements"/>
+
+</LinearLayout>

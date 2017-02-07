@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2016 Phillip Hsu
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- clipToPadding specifies whether padding should cut into the
+       - view bounds, and hence into the children. To us, setting
+       - this to false has the effect of padding the bottom with
+       - extra space so the FAB isn't covering the last item
+       - when we scroll to it.
+       -
+       - An outsideOverlay scrollbarStyle means the scrollbar is drawn
+       - outside of the clipping boundary due to padding, and is laid over
+       - the RecyclerView, rather than being inside of its container (which
+       - mandates it being inset and adding to the view's padding).
+     -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:scrollbarStyle="outsideOverlay"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/fab_total_height"/>
+
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_headline"
+        android:textColor="@color/empty_recyclerview_text_color"
+        android:drawablePadding="@dimen/text_compound_drawable_padding"
+        android:visibility="gone"/>
+
+</FrameLayout>
