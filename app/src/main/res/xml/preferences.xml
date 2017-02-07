@@ -86,23 +86,5 @@
             android:defaultValue="@string/value_sunday"
             android:summary="%s"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/title_category_timers">
-        <com.haayhappen.clockplus.settings.ThemedRingtonePreference
-            android:key="@string/key_timer_ringtone"
-            android:title="@string/title_timer_ringtone"
-            android:ringtoneType="alarm"
-            android:defaultValue="content://settings/system/alarm_alert"/>
-        <ListPreference
-            android:key="@string/key_timer_silence_after"
-            android:title="@string/title_timer_silence_after"
-            android:dialogTitle="@string/title_timer_silence_after"
-            android:entries="@array/entries_duration"
-            android:entryValues="@array/values_duration"
-            android:defaultValue="15"
-            android:summary="%s"/>
-        <SwitchPreference
-            android:key="@string/key_timer_vibrate"
-            android:title="@string/title_timer_vibrate"
-            android:defaultValue="false"/>
-    </PreferenceCategory>
+
 </PreferenceScreen>
