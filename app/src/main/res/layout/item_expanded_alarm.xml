@@ -57,7 +57,6 @@
             <include layout="@layout/alarm_time_layout"/>
 
             <LinearLayout
-                android:id="@+id/days"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">

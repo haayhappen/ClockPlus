@@ -20,11 +20,11 @@ import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
-import com.haayhappen.clockplus.data.AsyncDatabaseTableUpdateHandler;
 import com.haayhappen.clockplus.R;
 import com.haayhappen.clockplus.alarms.Alarm;
-import com.haayhappen.clockplus.list.ScrollHandler;
 import com.haayhappen.clockplus.alarms.misc.AlarmController;
+import com.haayhappen.clockplus.data.AsyncDatabaseTableUpdateHandler;
+import com.haayhappen.clockplus.list.ScrollHandler;
 
 /**
  * Created by Phillip Hsu on 7/1/2016.

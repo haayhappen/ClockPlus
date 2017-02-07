@@ -57,7 +57,6 @@
             style="@style/Divider.Horizontal"/>
 
         <LinearLayout
-            android:id="@+id/half_day_toggles"
             android:layout_width="match_parent"
             android:layout_height="@dimen/half_day_button_bar_height"
             android:orientation="horizontal">

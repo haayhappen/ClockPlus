@@ -20,9 +20,6 @@ import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
-import com.haayhappen.clockplus.dialogs.DialogFragmentController;
-import com.haayhappen.clockplus.dialogs.RingtonePickerDialog;
-
 /**
  * Created by Phillip Hsu on 9/20/2016.
  */

@@ -25,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.haayhappen.clockplus.R;
 import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.alarms.data.AlarmCursor;
@@ -35,6 +34,7 @@ import com.haayhappen.clockplus.alarms.misc.AlarmController;
 import com.haayhappen.clockplus.dialogs.TimePickerDialogController;
 import com.haayhappen.clockplus.list.RecyclerViewFragment;
 import com.haayhappen.clockplus.util.DelayedSnackbarHandler;
+import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 
 import static com.haayhappen.clockplus.util.FragmentTagUtils.makeTag;
 

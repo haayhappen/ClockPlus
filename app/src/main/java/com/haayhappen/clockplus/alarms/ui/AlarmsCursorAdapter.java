@@ -19,11 +19,11 @@ package com.haayhappen.clockplus.alarms.ui;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.haayhappen.clockplus.list.BaseCursorAdapter;
-import com.haayhappen.clockplus.list.OnListItemInteractionListener;
 import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.alarms.data.AlarmCursor;
 import com.haayhappen.clockplus.alarms.misc.AlarmController;
+import com.haayhappen.clockplus.list.BaseCursorAdapter;
+import com.haayhappen.clockplus.list.OnListItemInteractionListener;
 
 /**
  * Created by Phillip Hsu on 6/29/2016.

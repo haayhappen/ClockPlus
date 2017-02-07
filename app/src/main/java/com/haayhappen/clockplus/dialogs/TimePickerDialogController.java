@@ -22,10 +22,10 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.text.format.DateFormat;
 
+import com.haayhappen.clockplus.R;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.grid.GridTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.numberpad.NumberPadTimePickerDialog;
-import com.haayhappen.clockplus.R;
 
 /**
  * Created by Phillip Hsu on 9/6/2016.

@@ -31,5 +31,4 @@
         <item>@string/theme_black</item>
     </string-array>
 
-    <string name="key_last_tab">last_tab</string>
 </resources>

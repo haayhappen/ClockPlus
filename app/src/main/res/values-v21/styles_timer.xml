@@ -15,8 +15,4 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <style name="TimerFab" parent="BaseTimerFab">
-        <item name="android:layout_marginBottom">@dimen/fab_margin</item>
-    </style>
-</resources>
+<resources></resources>

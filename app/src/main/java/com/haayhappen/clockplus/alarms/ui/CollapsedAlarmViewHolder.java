@@ -19,11 +19,11 @@ package com.haayhappen.clockplus.alarms.ui;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.haayhappen.clockplus.list.OnListItemInteractionListener;
 import com.haayhappen.clockplus.R;
 import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.alarms.misc.AlarmController;
 import com.haayhappen.clockplus.alarms.misc.DaysOfWeek;
+import com.haayhappen.clockplus.list.OnListItemInteractionListener;
 
 import butterknife.Bind;
 

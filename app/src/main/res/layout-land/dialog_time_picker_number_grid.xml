@@ -54,7 +54,6 @@
 
         <!--TODO: Be wary of this vertical LL with weighted children.-->
         <LinearLayout
-            android:id="@+id/half_day_toggles"
             android:layout_width="@dimen/half_day_button_bar_height"
             android:layout_height="match_parent"
             android:orientation="vertical">

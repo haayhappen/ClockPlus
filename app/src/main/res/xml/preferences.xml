@@ -15,8 +15,7 @@
   ~ limitations under the License.
   -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <!--<PreferenceCategory android:title="@string/title_category_world_clock">
         <ListPreference
             android:key="@string/key_show_time_offsets_from"
