@@ -38,7 +38,7 @@
                 android:layout_gravity="center" />
         </FrameLayout>
 
-        <com.philliphsu.clock2.timepickers.GridSelectorLayout
+        <com.haayhappen.clockplus.timepickers.GridSelectorLayout
             android:id="@+id/time_picker"
             android:layout_width="0dp"
             android:layout_height="match_parent"
