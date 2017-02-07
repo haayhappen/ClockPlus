@@ -25,7 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.haayhappen.bottomsheetpickers.time.BottomSheetTimePickerDialog;
+import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.haayhappen.clockplus.R;
 import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.alarms.data.AlarmCursor;

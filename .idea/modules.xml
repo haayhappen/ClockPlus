@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ClockPlus.iml" filepath="$PROJECT_DIR$/ClockPlus.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bottomsheetpickers-debug/bottomsheetpickers-debug.iml" filepath="$PROJECT_DIR$/bottomsheetpickers-debug/bottomsheetpickers-debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bottomsheetpickers-release/bottomsheetpickers-release.iml" filepath="$PROJECT_DIR$/bottomsheetpickers-release/bottomsheetpickers-release.iml" />
     </modules>
   </component>
 </project>

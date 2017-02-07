@@ -52,7 +52,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.philliphsu.clock2.MainActivity"/>
+                android:value="com.haayhappen.clockplus.MainActivity"/>
         </activity>
 
         <receiver

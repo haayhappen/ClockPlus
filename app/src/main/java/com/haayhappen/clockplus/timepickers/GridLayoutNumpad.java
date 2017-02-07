@@ -26,7 +26,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-import com.philliphsu.clock2.R;
+import com.haayhappen.clockplus.R;
 
 import java.util.Arrays;
 

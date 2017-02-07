@@ -41,7 +41,7 @@ import com.haayhappen.clockplus.dialogs.AddLabelDialogController;
 import com.haayhappen.clockplus.dialogs.TimePickerDialogController;
 import com.haayhappen.clockplus.list.BaseViewHolder;
 import com.haayhappen.clockplus.list.OnListItemInteractionListener;
-import com.haayhappen.bottomsheetpickers.time.BottomSheetTimePickerDialog.OnTimeSetListener;
+import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog.OnTimeSetListener;
 import com.haayhappen.clockplus.timepickers.Utils;
 import com.haayhappen.clockplus.util.FragmentTagUtils;
 import com.haayhappen.clockplus.util.TimeTextUtils;

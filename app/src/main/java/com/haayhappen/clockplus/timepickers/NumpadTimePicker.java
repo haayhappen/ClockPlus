@@ -31,7 +31,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.philliphsu.clock2.R;
+import com.haayhappen.clockplus.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

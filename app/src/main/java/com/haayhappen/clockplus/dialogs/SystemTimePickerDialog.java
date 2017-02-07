@@ -23,7 +23,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.widget.TimePicker;
 
-import com.haayhappen.bottomsheetpickers.time.BottomSheetTimePickerDialog;
+import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 
 /**
  * Created by Phillip Hsu on 9/28/2016.
