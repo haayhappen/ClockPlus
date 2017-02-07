@@ -42,9 +42,7 @@ import com.haayhappen.clockplus.alarms.ui.AlarmsFragment;
 import com.haayhappen.clockplus.data.BaseItemCursor;
 import com.haayhappen.clockplus.list.RecyclerViewFragment;
 import com.haayhappen.clockplus.settings.SettingsActivity;
-import com.haayhappen.clockplus.stopwatch.ui.StopwatchFragment;
 import com.haayhappen.clockplus.timepickers.Utils;
-import com.haayhappen.clockplus.timers.ui.TimersFragment;
 
 import butterknife.Bind;
 
@@ -55,8 +53,6 @@ public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
 
     public static final int    PAGE_ALARMS          = 0;
-    public static final int    PAGE_TIMERS          = 1;
-    public static final int    PAGE_STOPWATCH       = 2;
     public static final int    REQUEST_THEME_CHANGE = 5;
     public static final String EXTRA_SHOW_PAGE      = "com.philliphsu.clock2.extra.SHOW_PAGE";
 
@@ -159,8 +155,6 @@ public class MainActivity extends BaseActivity {
 
         ColorStateList tabIconColor = ContextCompat.getColorStateList(this, R.color.tab_icon_color);
         setTabIcon(PAGE_ALARMS, R.drawable.ic_alarm_24dp, tabIconColor);
-        setTabIcon(PAGE_TIMERS, R.drawable.ic_timer_24dp, tabIconColor);
-        setTabIcon(PAGE_STOPWATCH, R.drawable.ic_stopwatch_24dp, tabIconColor);
 
         // TODO: @OnCLick instead.
         mFab.setOnClickListener(new View.OnClickListener() {
@@ -342,10 +336,6 @@ public class MainActivity extends BaseActivity {
             switch (position) {
                 case PAGE_ALARMS:
                     return new AlarmsFragment();
-                case PAGE_TIMERS:
-                    return new TimersFragment();
-                case PAGE_STOPWATCH:
-                    return new StopwatchFragment();
                 default:
                     throw new IllegalStateException("No fragment can be instantiated for position " + position);
             }
@@ -366,7 +356,7 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return 1;
         }
 
         public Fragment getFragment(int position) {

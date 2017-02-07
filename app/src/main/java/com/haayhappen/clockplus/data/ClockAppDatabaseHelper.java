@@ -21,8 +21,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.haayhappen.clockplus.alarms.data.AlarmsTable;
-import com.haayhappen.clockplus.stopwatch.data.LapsTable;
-import com.haayhappen.clockplus.timers.data.TimersTable;
 
 /**
  * Created by Phillip Hsu on 7/30/2016.
@@ -50,14 +48,10 @@ public class ClockAppDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         AlarmsTable.onCreate(db);
-        TimersTable.onCreate(db);
-        LapsTable.onCreate(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         AlarmsTable.onUpgrade(db, oldVersion, newVersion);
-        TimersTable.onUpgrade(db, oldVersion, newVersion);
-        LapsTable.onUpgrade(db, oldVersion, newVersion);
     }
 }
