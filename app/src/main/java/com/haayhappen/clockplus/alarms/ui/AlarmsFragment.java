@@ -132,7 +132,7 @@ public class AlarmsFragment extends RecyclerViewFragment<Alarm, BaseAlarmViewHol
 
     @Override
     protected AlarmsCursorAdapter onCreateAdapter() {
-        return new AlarmsCursorAdapter(this, mAlarmController);
+        return new AlarmsCursorAdapter(getActivity(),this, mAlarmController);
     }
 
     @Override

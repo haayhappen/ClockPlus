@@ -16,6 +16,7 @@
 
 package com.haayhappen.clockplus.alarms.ui;
 
+import android.app.Activity;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -39,9 +40,9 @@ public class CollapsedAlarmViewHolder extends BaseAlarmViewHolder {
     @Bind(R.id.countdown) AlarmCountdown mCountdown;
     @Bind(R.id.recurring_days) TextView mDays; // TODO: use `new DateFormatSymbols().getShortWeekdays()` to set texts
 
-    public CollapsedAlarmViewHolder(ViewGroup parent, OnListItemInteractionListener<Alarm> listener,
+    public CollapsedAlarmViewHolder(Activity activity,ViewGroup parent, OnListItemInteractionListener<Alarm> listener,
                                     AlarmController alarmController) {
-        super(parent, R.layout.item_collapsed_alarm, listener, alarmController);
+        super(activity,parent, R.layout.item_collapsed_alarm, listener, alarmController);
     }
 
     @Override

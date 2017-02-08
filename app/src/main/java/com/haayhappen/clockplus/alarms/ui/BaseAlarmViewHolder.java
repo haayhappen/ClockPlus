@@ -16,6 +16,7 @@
 
 package com.haayhappen.clockplus.alarms.ui;
 
+import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.IdRes;
@@ -78,10 +79,10 @@ public abstract class BaseAlarmViewHolder extends BaseViewHolder<Alarm> {
     @Bind(R.id.label) TextView mLabel;
     @Bind(R.id.dismiss) Button mDismissButton;
 
-    public BaseAlarmViewHolder(ViewGroup parent, @LayoutRes int layoutRes,
+    public BaseAlarmViewHolder(Activity activity,ViewGroup parent, @LayoutRes int layoutRes,
                                OnListItemInteractionListener<Alarm> listener,
                                AlarmController controller) {
-        super(parent, layoutRes, listener);
+        super(activity,parent, layoutRes, listener);
         mAlarmController = controller;
         // Because of VH binding, setting drawable resources on views would be bad for performance.
         // Instead, we create and cache the Drawables once.

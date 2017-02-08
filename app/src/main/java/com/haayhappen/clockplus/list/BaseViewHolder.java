@@ -16,6 +16,7 @@
 
 package com.haayhappen.clockplus.list;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
@@ -32,17 +33,20 @@ import butterknife.ButterKnife;
 public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private final Context mContext;
+    private final Activity mActivity;
     private final OnListItemInteractionListener<T> mListener;
     private T mItem;
 
-    public BaseViewHolder(ViewGroup parent, @LayoutRes int layoutRes, OnListItemInteractionListener<T> listener) {
+    public BaseViewHolder(Activity activity, ViewGroup parent, @LayoutRes int layoutRes, OnListItemInteractionListener<T> listener) {
         super(LayoutInflater.from(parent.getContext())
                 .inflate(layoutRes, parent, false));
         ButterKnife.bind(this, itemView);
         mContext = parent.getContext();
+        mActivity = activity;
         mListener = listener;
         itemView.setOnClickListener(this);
     }
+
 
     /**
      * Call to super must be the first line in the overridden implementation,
@@ -55,6 +59,10 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder implemen
 
     public final Context getContext() {
         return mContext;
+    }
+
+    public final Activity getActivity() {
+        return mActivity;
     }
 
     public final T getItem() {

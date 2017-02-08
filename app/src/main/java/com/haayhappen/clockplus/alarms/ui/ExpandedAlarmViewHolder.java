@@ -16,6 +16,7 @@
 
 package com.haayhappen.clockplus.alarms.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
@@ -28,8 +29,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.haayhappen.clockplus.R;
 import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.alarms.misc.AlarmController;
@@ -55,14 +60,16 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
     @Bind(R.id.vibrate) TempCheckableImageButton mVibrate;
     @Bind({R.id.day0, R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6})
     ToggleButton[] mDays;
+    @Bind(R.id.from) TextView fromText;
+    @Bind(R.id.to) TextView toText;
 
     private final ColorStateList mDayToggleColors;
     private final ColorStateList mVibrateColors;
     private final RingtonePickerDialogController mRingtonePickerController;
 
-    public ExpandedAlarmViewHolder(ViewGroup parent, final OnListItemInteractionListener<Alarm> listener,
+    public ExpandedAlarmViewHolder(Activity activity,ViewGroup parent, final OnListItemInteractionListener<Alarm> listener,
                                    AlarmController controller) {
-        super(parent, R.layout.item_expanded_alarm, listener, controller);
+        super(activity, parent, R.layout.item_expanded_alarm, listener, controller);
         // Manually bind listeners, or else you'd need to write a getter for the
         // OnListItemInteractionListener in the BaseViewHolder for use in method binding.
         mDelete.setOnClickListener(new View.OnClickListener() {
@@ -183,6 +190,23 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
                 .build();
         oldAlarm.copyMutableFieldsTo(newAlarm);
         persistUpdatedAlarm(newAlarm, false);
+    }
+
+    @OnClick(R.id.from)
+    void onFromClicked(){
+        PlacePicker.IntentBuilder builder =new PlacePicker.IntentBuilder();
+        try {
+            getActivity().startActivityForResult(builder.build(getActivity()),1);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.to)
+    void onToClicked(){
+
     }
 
     @OnClick({ R.id.day0, R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6 })
