@@ -25,7 +25,7 @@ import android.view.animation.Animation;
 import android.widget.ViewAnimator;
 
 /**
- * Created by Phillip Hsu on 8/17/2016.
+ * Created by Fynn Merlevede on 8/17/2016.
  *
  * A derivative of the AOSP datetimepicker RadialPickerLayout class.
  * The animations used here are taken from the DatePickerDialog class.

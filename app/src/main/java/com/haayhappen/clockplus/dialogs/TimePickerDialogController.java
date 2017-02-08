@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import com.philliphsu.bottomsheetpickers.time.grid.GridTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.numberpad.NumberPadTimePickerDialog;
 
 /**
- * Created by Phillip Hsu on 9/6/2016.
+ * Created by Fynn Merlevede on 9/6/2016.
  */
 public final class TimePickerDialogController extends DialogFragmentController<BottomSheetTimePickerDialog> {
     private static final String TAG = "TimePickerController";

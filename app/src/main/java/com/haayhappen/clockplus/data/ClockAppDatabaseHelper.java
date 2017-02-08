@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.haayhappen.clockplus.alarms.data.AlarmsTable;
 
 /**
- * Created by Phillip Hsu on 7/30/2016.
+ * Created by Fynn Merlevede on 7/30/2016.
  */
 public class ClockAppDatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = "ClockAppDatabaseHelper";

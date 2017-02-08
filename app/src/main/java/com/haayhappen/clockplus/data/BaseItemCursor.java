@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import android.database.CursorWrapper;
 import android.util.Log;
 
 /**
- * Created by Phillip Hsu on 7/29/2016.
+ * Created by Fynn Merlevede on 7/29/2016.
  */
 public abstract class BaseItemCursor<T extends ObjectWithId> extends CursorWrapper {
     private static final String TAG = "BaseItemCursor";

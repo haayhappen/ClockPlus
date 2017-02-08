@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import static android.view.View.VISIBLE;
 import static com.haayhappen.clockplus.alarms.misc.DaysOfWeek.NUM_DAYS;
 
 /**
- * Created by Phillip Hsu on 5/31/2016.
+ * Created by Fynn Merlevede on 5/31/2016.
  */
 public class CollapsedAlarmViewHolder extends BaseAlarmViewHolder {
 

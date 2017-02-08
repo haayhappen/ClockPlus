@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.data.SQLiteCursorLoader;
 
 /**
- * Created by Phillip Hsu on 6/28/2016.
+ * Created by Fynn Merlevede on 6/28/2016.
  */
 public class AlarmsListCursorLoader extends SQLiteCursorLoader<Alarm, AlarmCursor> {
     public static final String ACTION_CHANGE_CONTENT

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,6 @@ import android.os.AsyncTask;
 
 import com.haayhappen.clockplus.list.ScrollHandler;
 
-/**
- * Created by Phillip Hsu on 7/1/2016.
- */
 public abstract class AsyncDatabaseTableUpdateHandler<
         T extends ObjectWithId,
         TM extends DatabaseTableManager<T>> {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import android.animation.ObjectAnimator;
 import android.widget.ProgressBar;
 
 /**
- * Created by Phillip Hsu on 8/10/2016.
+ * Created by Fynn Merlevede on 8/10/2016.
  */
 public class ProgressBarUtils {
     private static final int MAX_PROGRESS = 1000000;
