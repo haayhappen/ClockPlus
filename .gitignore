@@ -12,7 +12,7 @@ proguard/
 *.iws
 *.iml
 *.ipr
-.idea
+.idea/
 .gradle/
 out
  
