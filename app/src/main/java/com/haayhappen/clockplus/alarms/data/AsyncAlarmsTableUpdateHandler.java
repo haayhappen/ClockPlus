@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import com.haayhappen.clockplus.data.AsyncDatabaseTableUpdateHandler;
 import com.haayhappen.clockplus.list.ScrollHandler;
 
 /**
- * Created by Phillip Hsu on 7/1/2016.
+ * Created by Fynn Merlevede on 7/1/2016.
  * TODO: Consider making an AsyncDatabaseChangeHandlerWithSnackbar abstract class
  */
 public final class AsyncAlarmsTableUpdateHandler extends AsyncDatabaseTableUpdateHandler<Alarm, AlarmsTableManager> {

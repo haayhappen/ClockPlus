@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import com.haayhappen.clockplus.list.RecyclerViewFragment;
 import static android.app.PendingIntent.FLAG_CANCEL_CURRENT;
 
 /**
- * Created by Phillip Hsu on 9/28/2016.
+ * Created by Fynn Merlevede on 9/28/2016.
  *
  * Helper to create content intents for e.g. notifications that should
  * open the app, scroll to the specified page, and then scroll to the

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ import butterknife.OnClick;
 import butterknife.OnLongClick;
 
 /**
- * Created by Phillip Hsu on 7/12/2016.
+ * Created by Fynn Merlevede on 7/12/2016.
  */
 public class NumpadTimePicker extends GridLayoutNumpad {
     // Time can be represented with maximum of 4 digits

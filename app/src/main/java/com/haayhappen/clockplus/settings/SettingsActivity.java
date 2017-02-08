@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import com.haayhappen.clockplus.BaseActivity;
 import com.haayhappen.clockplus.R;
 
 /**
- * Created by Phillip Hsu on 6/6/2016.
+ * Created by Fynn Merlevede on 6/6/2016.
  */
 public class SettingsActivity extends BaseActivity {
     public static final String EXTRA_THEME_CHANGED = "com.philliphsu.clock2.settings.extra.THEME_CHANGED";

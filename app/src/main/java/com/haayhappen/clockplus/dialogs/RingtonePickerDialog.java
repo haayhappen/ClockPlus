@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import com.haayhappen.clockplus.R;
 import com.haayhappen.clockplus.ringtone.playback.RingtoneLoop;
 
 /**
- * Created by Phillip Hsu on 9/3/2016.
+ * Created by Fynn Merlevede on 9/3/2016.
  * <p></p>
  * An alternative to the system's ringtone picker dialog. The differences are:
  * (1) this dialog matches the current theme,

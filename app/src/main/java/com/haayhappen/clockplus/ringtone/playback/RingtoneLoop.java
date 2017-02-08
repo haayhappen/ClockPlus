@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import android.net.Uri;
 import java.io.IOException;
 
 /**
- * Created by Phillip Hsu on 9/5/2016.
+ * Created by Fynn Merlevede on 9/5/2016.
  *
  * A MediaPlayer configured to play a ringtone in a loop.
  */

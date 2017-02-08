@@ -29,7 +29,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.Checkable;
 
 /**
- * Created by Phillip Hsu on 9/26/2016.
+ * Created by Fynn Merlevede on 9/26/2016.
  *
  * Temporary fix for design support library's CheckableImageButton that toggles itself when clicked.
  *

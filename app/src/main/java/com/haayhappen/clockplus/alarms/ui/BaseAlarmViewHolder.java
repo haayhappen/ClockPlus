@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,7 +59,7 @@ import static android.view.View.VISIBLE;
 import static com.haayhappen.clockplus.util.TimeFormatUtils.formatTime;
 
 /**
- * Created by Phillip Hsu on 7/31/2016.
+ * Created by Fynn Merlevede on 7/31/2016.
  */
 public abstract class BaseAlarmViewHolder extends BaseViewHolder<Alarm> {
     private static final String TAG = "BaseAlarmViewHolder";

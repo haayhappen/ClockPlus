@@ -32,7 +32,7 @@ import java.util.IllegalFormatException;
 import java.util.Locale;
 
 /**
- * Created by Phillip Hsu on 4/30/2016.
+ * Created by Fynn Merlevede on 4/30/2016.
  * 
  * A modified version of the framework's Chronometer class that counts down toward the base time,
  * uses the {@link System#currentTimeMillis()} timebase, and only has minute precision.
