@@ -88,29 +88,47 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/from"
-                style="@style/BaseLabel"
-                android:hint="@string/from"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/label_height"
-                android:layout_marginBottom="@dimen/item_margin_between_elements"
-                android:background="?android:attr/selectableItemBackground"
-                android:drawablePadding="@dimen/text_compound_drawable_padding"
-                android:drawableStart="@drawable/ic_map_marker_circle"
-                android:gravity="center_vertical" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_between_elements">
 
-            <TextView
-                android:id="@+id/to"
-                style="@style/BaseLabel"
-                android:hint="@string/to"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/label_height"
-                android:layout_marginBottom="@dimen/item_margin_between_elements"
-                android:background="?android:attr/selectableItemBackground"
-                android:drawablePadding="@dimen/text_compound_drawable_padding"
-                android:drawableStart="@drawable/ic_map_marker"
-                android:gravity="center_vertical" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_from_to_separator"
+                    android:layout_centerVertical="true"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/from"
+                        style="@style/BaseLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/label_height"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:drawablePadding="@dimen/text_compound_drawable_padding"
+                        android:drawableStart="@drawable/ic_map_marker_circle"
+                        android:gravity="center_vertical"
+                        android:hint="@string/from" />
+
+                    <TextView
+                        android:id="@+id/to"
+                        style="@style/BaseLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/label_height"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:drawablePadding="@dimen/text_compound_drawable_padding"
+                        android:drawableStart="@drawable/ic_map_marker"
+                        android:gravity="center_vertical"
+                        android:hint="@string/to" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/label"

@@ -7,11 +7,7 @@
 
     <group
             android:translateY="-1028.3622">
-        <path
-            android:fillColor="#9d7751"
-            android:fillAlpha="0"
-            android:strokeWidth="1"
-            android:pathData="M 0 1028.3622 H 24.000002 V 1052.362202 H 0 V 1028.3622 Z" />
+
         <path
             android:fillColor="#ffffff"
             android:strokeWidth="1"
