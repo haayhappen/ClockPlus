@@ -72,12 +72,6 @@
             android:exported="false"/>
 
         <activity
-            android:name=".ringtone.TimesUpActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/title_activity_ringtone"
-            android:launchMode="singleTask"
-            android:taskAffinity="com.haayhappen.clockplus.RingtoneActivity"/>
-        <activity
             android:name=".ringtone.AlarmActivity"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_ringtone"
@@ -88,11 +82,6 @@
             android:name=".ringtone.playback.AlarmRingtoneService"
             android:enabled="true"
             android:exported="false"/>
-        <service
-            android:name=".ringtone.playback.TimerRingtoneService"
-            android:enabled="true"
-            android:exported="false"/>
-
     </application>
 
 </manifest>
