@@ -238,6 +238,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
                         .build();
                 oldAlarm.copyMutableFieldsTo(newAlarm);
                 persistUpdatedAlarm(newAlarm, false);
+
                 DistanceHandler.getDistanceInfo(fromText.getText().toString(),toText.getText().toString());
             }
         });
