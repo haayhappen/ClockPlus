@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2016 Phillip Hsu
+  ~ Copyright (C) 2016 Fynn Merlevede
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -16,14 +16,5 @@
   -->
 
 <resources>
-    <string name="title_category_world_clock">World Clock</string>
 
-    <string name="key_show_time_offsets_from">key_show_time_offsets_from</string>
-    <string name="title_show_time_offsets_from">Show time offsets from</string>
-    <string name="local_time">Local time</string>
-    <string name="gmt">GMT</string>
-    <string-array name="array_show_time_offsets_from">
-        <item>@string/local_time</item>
-        <item>@string/gmt</item>
-    </string-array>
 </resources>

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (C) 2016 Phillip Hsu
+  ~ Copyright (C) 2016 Fynn Merlevede
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
   -->
 
 <fragment android:id="@+id/fragment"
-          android:name="com.philliphsu.clock2.settings.SettingsFragment"
+          android:name="com.haayhappen.clockplus.settings.SettingsFragment"
           xmlns:android="http://schemas.android.com/apk/res/android"
           android:layout_width="match_parent"
           android:layout_height="match_parent"

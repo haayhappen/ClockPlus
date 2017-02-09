@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2016 Phillip Hsu
+  ~ Copyright (C) 2016 Fynn Merlevede
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -16,8 +16,7 @@
   -->
 
 <TextClock xmlns:android="http://schemas.android.com/apk/res/android"
-           xmlns:app="http://schemas.android.com/apk/res-auto"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           style="@style/TextAppearance.AppCompat"
-           android:textSize="@dimen/text_size_display_2"/>
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    style="@style/TextAppearance.AppCompat"
+    android:textSize="@dimen/text_size_display_2" />

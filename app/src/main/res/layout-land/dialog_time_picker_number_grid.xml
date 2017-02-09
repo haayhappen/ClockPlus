@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2016 Phillip Hsu
+  ~ Copyright (C) 2016 Fynn Merlevede
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@
                 android:layout_gravity="center" />
         </FrameLayout>
 
-        <com.philliphsu.clock2.timepickers.GridSelectorLayout
+        <com.haayhappen.clockplus.timepickers.GridSelectorLayout
             android:id="@+id/time_picker"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -54,7 +54,6 @@
 
         <!--TODO: Be wary of this vertical LL with weighted children.-->
         <LinearLayout
-            android:id="@+id/half_day_toggles"
             android:layout_width="@dimen/half_day_button_bar_height"
             android:layout_height="match_parent"
             android:orientation="vertical">

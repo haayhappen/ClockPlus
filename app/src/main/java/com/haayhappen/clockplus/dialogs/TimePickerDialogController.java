@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,13 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.text.format.DateFormat;
 
-import com.haayhappen.bottomsheetpickers.time.BottomSheetTimePickerDialog;
-import com.haayhappen.bottomsheetpickers.time.grid.GridTimePickerDialog;
-import com.haayhappen.bottomsheetpickers.time.numberpad.NumberPadTimePickerDialog;
 import com.haayhappen.clockplus.R;
+import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
+import com.philliphsu.bottomsheetpickers.time.grid.GridTimePickerDialog;
+import com.philliphsu.bottomsheetpickers.time.numberpad.NumberPadTimePickerDialog;
 
 /**
- * Created by Phillip Hsu on 9/6/2016.
+ * Created by Fynn Merlevede on 9/6/2016.
  */
 public final class TimePickerDialogController extends DialogFragmentController<BottomSheetTimePickerDialog> {
     private static final String TAG = "TimePickerController";
@@ -47,6 +47,8 @@ public final class TimePickerDialogController extends DialogFragmentController<B
         mContext = context;
         mListener = listener;
     }
+
+  
 
     public void show(int initialHourOfDay, int initialMinute, String tag) {
         BottomSheetTimePickerDialog dialog = null;

@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (C) 2016 Phillip Hsu
+  ~ Copyright (C) 2016 Fynn Merlevede
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -67,20 +67,6 @@
     <style name="AppTheme.Black" parent="BaseAppTheme.Black">
     </style>
 
-    <style name="NumberButton">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:padding">12dp</item>
-        <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:textSize">28sp</item>
-    </style>
-
-    <style name="grid_element_single">
-        <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:textSize">@dimen/grid_element_text_size</item>
-    </style>
-
     <!-- TODO: Rename to GridLayoutElement -->
     <style name="GridLayoutNumpadElement">
         <!-- http://stackoverflow.com/a/6868308/5055032
@@ -124,18 +110,6 @@
     </style>
 
     <!-- TODO: Replace and Delete -->
-    <style name="hybrid_time_picker_grid_element">
-        <item name="android:layout_width">@dimen/grid_element_touch_target</item>
-        <item name="android:layout_height">@dimen/grid_element_touch_target</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">20sp</item>
-        <!-- http://stackoverflow.com/a/6868308/5055032
-         Leave off the namespace to reference a custom attribute.
-         Here, we are referencing the "grid:" namespace -->
-        <item name="layout_columnWeight">1</item>
-        <item name="layout_rowWeight">1</item>
-        <item name="layout_gravity">center</item>
-    </style>
 
     <style name="Divider">
         <!-- This is robust against dark/light theme changes. -->
@@ -153,14 +127,6 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="FocusGrabber">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">0dp</item>
-        <!-- We need both focusable attrs for requestFocus() to succeed -->
-        <item name="android:focusable">true</item>
-        <item name="android:focusableInTouchMode">true</item>
-    </style>
-
     <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Dialog.Alert">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:background">@color/alert_dialog_background_color</item>
@@ -175,12 +141,6 @@
     </style>
 
     <!--Style for SeekBar that spans full width-->
-    <style name="BaseSeekBar">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingStart">0dp</item>
-        <item name="android:paddingEnd">0dp</item>
-    </style>
 
     <!--Style for a button that opens an AddLabelDialog-->
     <style name="BaseLabel" parent="TextAppearance.AppCompat">

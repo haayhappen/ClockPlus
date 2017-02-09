@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.haayhappen.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.haayhappen.clockplus.R;
 import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.alarms.data.AlarmCursor;
@@ -35,6 +34,7 @@ import com.haayhappen.clockplus.alarms.misc.AlarmController;
 import com.haayhappen.clockplus.dialogs.TimePickerDialogController;
 import com.haayhappen.clockplus.list.RecyclerViewFragment;
 import com.haayhappen.clockplus.util.DelayedSnackbarHandler;
+import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 
 import static com.haayhappen.clockplus.util.FragmentTagUtils.makeTag;
 
@@ -132,7 +132,7 @@ public class AlarmsFragment extends RecyclerViewFragment<Alarm, BaseAlarmViewHol
 
     @Override
     protected AlarmsCursorAdapter onCreateAdapter() {
-        return new AlarmsCursorAdapter(this, mAlarmController);
+        return new AlarmsCursorAdapter(getActivity(),this, mAlarmController);
     }
 
     @Override

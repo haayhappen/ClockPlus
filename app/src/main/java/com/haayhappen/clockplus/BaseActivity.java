@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by Phillip Hsu on 5/31/2016.
+ * Created by Fynn Merlevede on 5/31/2016.
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
@@ -74,7 +74,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
             ActionBar ab = getSupportActionBar();
+
             if (ab != null) {
+                ab.setTitle(getString(R.string.app_name));
                 ab.setDisplayHomeAsUpEnabled(isDisplayHomeUpEnabled());
                 ab.setDisplayShowTitleEnabled(isDisplayShowTitleEnabled());
             }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import com.haayhappen.clockplus.R;
 import static com.haayhappen.clockplus.util.KeyboardUtils.showKeyboard;
 
 /**
- * Created by Phillip Hsu on 8/30/2016.
+ * Created by Fynn Merlevede on 8/30/2016.
  *
  * TODO: If we have any other needs for a dialog with an EditText, rename this to EditTextDialog,
  * and change the callback interface name appropriately.

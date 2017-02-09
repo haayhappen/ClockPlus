@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (C) 2016 Phillip Hsu
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (C) 2016 Fynn Merlevede
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -22,24 +21,22 @@
   - that are common to both VHs (primarily the time text and the on-off switch)
   - shifting slightly during the transition. We are neglecting this blight because
   - we don't expect many devices below Lollipop using our app.
-  -->
-<!-- TODO: Write a layout for v21 that instead uses the elevation attribute normally.
+  --><!-- TODO: Write a layout for v21 that instead uses the elevation attribute normally.
   - You may have to set a non-transparent background on the main view.
   - Alternatively, just keep the CardView because that takes care of the non-transparent
   - background issue for free.
   -->
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="@dimen/expanded_alarm_elevation"
-    app:cardCornerRadius="0dp"
-    app:cardBackgroundColor="?cardBackgroundColor"
-    android:foreground="?selectableItemBackground"
-    android:clickable="true"
+    android:layout_marginBottom="@dimen/cardview_margin"
     android:layout_marginTop="@dimen/cardview_margin"
-    android:layout_marginBottom="@dimen/cardview_margin">
+    android:clickable="true"
+    android:foreground="?selectableItemBackground"
+    app:cardBackgroundColor="?cardBackgroundColor"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="@dimen/expanded_alarm_elevation">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,47 +47,98 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="@dimen/item_padding_top"
+            android:paddingEnd="@dimen/item_padding_end"
             android:paddingStart="@dimen/item_padding_start"
-            android:paddingEnd="@dimen/item_padding_end">
+            android:paddingTop="@dimen/item_padding_top">
 
-            <include layout="@layout/alarm_time_layout"/>
+            <include layout="@layout/alarm_time_layout" />
 
             <LinearLayout
-                android:id="@+id/days"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <ToggleButton
                     android:id="@+id/day0"
-                    style="@style/AlarmDayToggle"/>
+                    style="@style/AlarmDayToggle" />
 
                 <ToggleButton
                     android:id="@+id/day1"
-                    style="@style/AlarmDayToggle"/>
+                    style="@style/AlarmDayToggle" />
 
                 <ToggleButton
                     android:id="@+id/day2"
-                    style="@style/AlarmDayToggle"/>
+                    style="@style/AlarmDayToggle" />
 
                 <ToggleButton
                     android:id="@+id/day3"
-                    style="@style/AlarmDayToggle"/>
+                    style="@style/AlarmDayToggle" />
 
                 <ToggleButton
                     android:id="@+id/day4"
-                    style="@style/AlarmDayToggle"/>
+                    style="@style/AlarmDayToggle" />
 
                 <ToggleButton
                     android:id="@+id/day5"
-                    style="@style/AlarmDayToggle"/>
+                    style="@style/AlarmDayToggle" />
 
                 <ToggleButton
                     android:id="@+id/day6"
-                    style="@style/AlarmDayToggle"/>
+                    style="@style/AlarmDayToggle" />
 
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/item_margin_between_elements">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_from_to_separator"
+                    android:layout_centerVertical="true"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/from"
+                        style="@style/BaseLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/label_height"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:drawablePadding="@dimen/text_compound_drawable_padding"
+                        android:drawableStart="@drawable/ic_map_marker_circle"
+                        android:gravity="center_vertical"
+                        android:hint="@string/from" />
+
+                    <TextView
+                        android:id="@+id/to"
+                        style="@style/BaseLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/label_height"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:drawablePadding="@dimen/text_compound_drawable_padding"
+                        android:drawableStart="@drawable/ic_map_marker"
+                        android:gravity="center_vertical"
+                        android:hint="@string/to" />
+
+                    <TextView
+                        android:id="@+id/duration"
+                        style="@style/BaseLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/label_height"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:drawablePadding="@dimen/text_compound_drawable_padding"
+                        android:gravity="center_vertical"
+                        android:hint="@string/duration" />
+
+                </LinearLayout>
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/label"
@@ -99,13 +147,15 @@
                 android:layout_height="@dimen/label_height"
                 android:layout_marginBottom="@dimen/item_margin_between_elements"
                 android:background="?android:attr/selectableItemBackground"
-                android:gravity="center_vertical"/>
+                android:drawablePadding="@dimen/text_compound_drawable_padding"
+                android:drawableStart="@drawable/ic_label"
+                android:gravity="center_vertical" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/item_margin_between_elements">
+                android:layout_marginBottom="@dimen/item_margin_between_elements"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/ringtone"
@@ -113,52 +163,52 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
-                    android:text="Ringtone"
-                    android:gravity="center_vertical"
-                    android:textAppearance="@style/TextAppearance.AppCompat"
-                    android:textSize="@dimen/text_size_medium"
+                    android:drawablePadding="@dimen/text_compound_drawable_padding"
                     android:drawableStart="@drawable/ic_ringtone_24dp"
-                    android:drawablePadding="@dimen/text_compound_drawable_padding"/>
+                    android:gravity="center_vertical"
+                    android:text="Ringtone"
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    android:textSize="@dimen/text_size_medium" />
 
-                <com.philliphsu.clock2.alarms.ui.TempCheckableImageButton
+                <com.haayhappen.clockplus.alarms.ui.TempCheckableImageButton
                     android:id="@+id/vibrate"
-                    style="@style/AlarmVibrateToggle"/>
+                    style="@style/AlarmVibrateToggle" />
 
             </LinearLayout>
 
             <Button
                 android:id="@+id/dismiss"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/dismiss_now"
-                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_marginBottom="@dimen/item_margin_between_elements"
                 android:drawablePadding="@dimen/text_compound_drawable_padding"
-                android:paddingEnd="@dimen/button_text_right_padding"/>
+                android:paddingEnd="@dimen/button_text_right_padding"
+                android:text="@string/dismiss_now" />
 
         </LinearLayout>
 
-        <View style="@style/Divider.Horizontal"/>
+        <View style="@style/Divider.Horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end">
+            android:gravity="end"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/delete"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:text="@string/delete"/>
+                android:text="@string/delete" />
 
             <Button
                 android:id="@+id/ok"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
-                android:text="@android:string/ok"/>
+                android:text="@android:string/ok" />
 
         </LinearLayout>
 

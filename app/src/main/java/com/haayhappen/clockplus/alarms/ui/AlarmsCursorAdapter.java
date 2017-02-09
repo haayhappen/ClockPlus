@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,18 @@
 
 package com.haayhappen.clockplus.alarms.ui;
 
+import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import com.haayhappen.clockplus.list.BaseCursorAdapter;
-import com.haayhappen.clockplus.list.OnListItemInteractionListener;
 import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.alarms.data.AlarmCursor;
 import com.haayhappen.clockplus.alarms.misc.AlarmController;
+import com.haayhappen.clockplus.list.BaseCursorAdapter;
+import com.haayhappen.clockplus.list.OnListItemInteractionListener;
 
 /**
- * Created by Phillip Hsu on 6/29/2016.
+ * Created by Fynn Merlevede on 6/29/2016.
  */
 public class AlarmsCursorAdapter extends BaseCursorAdapter<Alarm, BaseAlarmViewHolder, AlarmCursor> {
     private static final String TAG = "AlarmsCursorAdapter";
@@ -34,22 +35,24 @@ public class AlarmsCursorAdapter extends BaseCursorAdapter<Alarm, BaseAlarmViewH
     private static final int VIEW_TYPE_EXPANDED = 1;
 
     private final AlarmController mAlarmController;
+    private final Activity activity;
 
     // TOneverDO: initial value >= 0
     private int mExpandedPosition = RecyclerView.NO_POSITION;
     private long mExpandedId = RecyclerView.NO_ID;
 
-    public AlarmsCursorAdapter(OnListItemInteractionListener<Alarm> listener,
+    public AlarmsCursorAdapter(Activity activity, OnListItemInteractionListener<Alarm> listener,
                                AlarmController alarmController) {
         super(listener);
+        this.activity = activity;
         mAlarmController = alarmController;
     }
 
     @Override
     protected BaseAlarmViewHolder onCreateViewHolder(ViewGroup parent, OnListItemInteractionListener<Alarm> listener, int viewType) {
         if (viewType == VIEW_TYPE_COLLAPSED)
-            return new CollapsedAlarmViewHolder(parent, listener, mAlarmController);
-        return new ExpandedAlarmViewHolder(parent, listener, mAlarmController);
+            return new CollapsedAlarmViewHolder(activity, parent, listener, mAlarmController);
+        return new ExpandedAlarmViewHolder(activity, parent, listener, mAlarmController);
     }
 
     @Override

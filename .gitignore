@@ -1,9 +1,45 @@
+# Android
+gen/
+build/
+local.properties
+# Old Android
+bin/
+*.apk
+proguard/
+ 
+ 
+# Idea
+*.iws
 *.iml
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
+*.ipr
+.idea/
+.gradle/
+out
+ 
+# Eclipse
+.project
+.classpath
+.settings
+# Eclipse NDK
+.cproject
+ 
+# Mac
 .DS_Store
-/build
-/captures
-.externalNativeBuild
+ 
+# Generic
+*~
+.swp
+ 
+# Android NDK
+*.o
+*.o.d
+*_g
+*.a
+*.so
+*.pinfo
+*.gcno
+*.bar
+gdbserver
+gdb.setup
+*.apk
+app/app-release.apk

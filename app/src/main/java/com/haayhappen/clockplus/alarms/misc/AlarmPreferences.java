@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import android.support.annotation.StringRes;
 import com.haayhappen.clockplus.R;
 
 /**
- * Created by Phillip Hsu on 6/3/2016.
+ * Created by Fynn Merlevede on 6/3/2016.
  *
  * Utilities for reading alarm preferences.
  */

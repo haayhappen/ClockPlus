@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import static com.haayhappen.clockplus.alarms.misc.DaysOfWeek.TUESDAY;
 import static com.haayhappen.clockplus.alarms.misc.DaysOfWeek.WEDNESDAY;
 
 /**
- * Created by Phillip Hsu on 7/30/2016.
+ * Created by Fynn Merlevede on 7/30/2016.
  */
 // An alternative method to creating an Alarm from a cursor is to
 // make an Alarm constructor that takes an Cursor param. However,
@@ -58,6 +58,8 @@ public class AlarmCursor extends BaseItemCursor<Alarm> {
                 .vibrates(isTrue(AlarmsTable.COLUMN_VIBRATES))
                 .ringtone(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_RINGTONE)))
                 .label(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_LABEL)))
+                .origin(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_ORIGIN)))
+                .destination(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_DESTINATION)))
                 .build();
         alarm.setId(getLong(getColumnIndexOrThrow(AlarmsTable.COLUMN_ID)));
         alarm.setEnabled(isTrue(AlarmsTable.COLUMN_ENABLED));

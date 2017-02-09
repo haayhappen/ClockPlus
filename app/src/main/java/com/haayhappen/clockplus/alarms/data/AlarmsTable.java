@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package com.haayhappen.clockplus.alarms.data;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- * Created by Phillip Hsu on 7/30/2016.
+ * Created by Fynn Merlevede on 7/30/2016.
  */
 public final class AlarmsTable {
     private AlarmsTable() {}
@@ -33,9 +33,12 @@ public final class AlarmsTable {
     public static final String COLUMN_HOUR = "hour";
     public static final String COLUMN_MINUTES = "minutes";
     public static final String COLUMN_LABEL = "label";
+    public static final String COLUMN_ORIGIN= "origin";
+    public static final String COLUMN_DESTINATION= "destination";
     public static final String COLUMN_RINGTONE = "ringtone";
     public static final String COLUMN_VIBRATES = "vibrates";
     public static final String COLUMN_ENABLED = "enabled";
+
 
     // TODO: Delete this column, becuase new sort order does not consider it
     @Deprecated
@@ -93,6 +96,8 @@ public final class AlarmsTable {
                 + COLUMN_HOUR + " INTEGER NOT NULL, "
                 + COLUMN_MINUTES + " INTEGER NOT NULL, "
                 + COLUMN_LABEL + " TEXT, "
+                + COLUMN_ORIGIN + " TEXT, "
+                + COLUMN_DESTINATION + " TEXT, "
                 + COLUMN_RINGTONE + " TEXT NOT NULL, "
                 + COLUMN_VIBRATES + " INTEGER NOT NULL, "
                 + COLUMN_ENABLED + " INTEGER NOT NULL, "

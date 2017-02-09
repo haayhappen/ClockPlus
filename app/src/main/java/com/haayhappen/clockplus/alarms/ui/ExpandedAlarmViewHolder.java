@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package com.haayhappen.clockplus.alarms.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
@@ -28,8 +29,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.haayhappen.clockplus.MainActivity;
 import com.haayhappen.clockplus.R;
 import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.alarms.misc.AlarmController;
@@ -39,30 +46,42 @@ import com.haayhappen.clockplus.dialogs.RingtonePickerDialogController;
 import com.haayhappen.clockplus.list.OnListItemInteractionListener;
 import com.haayhappen.clockplus.timepickers.Utils;
 import com.haayhappen.clockplus.util.FragmentTagUtils;
+import com.haayhappen.clockplus.location.DistanceHandler;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
+//import static com.haayhappen.clockplus.location.DistanceHandler.getDistanceInfo;
+
 /**
- * Created by Phillip Hsu on 7/31/2016.
+ * Created by Fynn Merlevede on 7/31/2016.
  */
-public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
+public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements DistanceHandler.AsyncResponse {
     private static final String TAG = "ExpandedAlarmViewHolder";
-
-    @Bind(R.id.ok) Button mOk;
-    @Bind(R.id.delete) Button mDelete;
-    @Bind(R.id.ringtone) Button mRingtone;
-    @Bind(R.id.vibrate) TempCheckableImageButton mVibrate;
-    @Bind({R.id.day0, R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6})
-    ToggleButton[] mDays;
-
     private final ColorStateList mDayToggleColors;
     private final ColorStateList mVibrateColors;
-    private final RingtonePickerDialogController mRingtonePickerController;
 
-    public ExpandedAlarmViewHolder(ViewGroup parent, final OnListItemInteractionListener<Alarm> listener,
+    private final RingtonePickerDialogController mRingtonePickerController;
+    @Bind(R.id.ok)
+    Button mOk;
+    @Bind(R.id.delete)
+    Button mDelete;
+    @Bind(R.id.ringtone)
+    Button mRingtone;
+    @Bind(R.id.vibrate)
+    TempCheckableImageButton mVibrate;
+    @Bind({R.id.day0, R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6})
+    ToggleButton[] mDays;
+    @Bind(R.id.from)
+    TextView fromText;
+    @Bind(R.id.to)
+    TextView toText;
+    @Bind(R.id.duration)
+    TextView duration;
+
+    public ExpandedAlarmViewHolder(Activity activity, ViewGroup parent, final OnListItemInteractionListener<Alarm> listener,
                                    AlarmController controller) {
-        super(parent, R.layout.item_expanded_alarm, listener, controller);
+        super(activity, parent, R.layout.item_expanded_alarm, listener, controller);
         // Manually bind listeners, or else you'd need to write a getter for the
         // OnListItemInteractionListener in the BaseViewHolder for use in method binding.
         mDelete.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +153,8 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
         mRingtonePickerController.tryRestoreCallback(makeTag(R.id.ringtone));
         bindDays(alarm);
         bindRingtone();
+        bindFrom(alarm);
+        bindTo(alarm);
         bindVibrate(alarm.vibrates());
     }
 
@@ -170,6 +191,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
         mRingtonePickerController.show(getSelectedRingtoneUri(), makeTag(R.id.ringtone));
     }
 
+
     @OnClick(R.id.vibrate)
     void onVibrateToggled() {
         final boolean checked = mVibrate.isChecked();
@@ -185,7 +207,71 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
         persistUpdatedAlarm(newAlarm, false);
     }
 
-    @OnClick({ R.id.day0, R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6 })
+    @OnClick(R.id.from)
+    void onFromClicked() {
+        ((MainActivity) getActivity()).setLocationPicker(new MainActivity.LocationPicker() {
+            @Override
+            public void onLocationPicked(Place place) {
+                fromText.setText(place.getAddress());
+                final Alarm oldAlarm = getAlarm();
+                Alarm newAlarm = oldAlarm.toBuilder()
+                        .origin(String.valueOf(place.getAddress()))
+                        .build();
+                oldAlarm.copyMutableFieldsTo(newAlarm);
+                persistUpdatedAlarm(newAlarm, false);
+            }
+        });
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        try {
+            getActivity().startActivityForResult(builder.build(getActivity()), MainActivity.REQUEST_CODE_PICK_LOCATION);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.to)
+    void onToClicked() {
+        ((MainActivity) getActivity()).setLocationPicker(new MainActivity.LocationPicker() {
+            @Override
+            public void onLocationPicked(Place place) {
+                toText.setText(place.getAddress());
+                final Alarm oldAlarm = getAlarm();
+                Alarm newAlarm = oldAlarm.toBuilder()
+                        .destination(String.valueOf(place.getAddress()))
+                        .build();
+                oldAlarm.copyMutableFieldsTo(newAlarm);
+                persistUpdatedAlarm(newAlarm, false);
+            }
+        });
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        try {
+            getActivity().startActivityForResult(builder.build(getActivity()), MainActivity.REQUEST_CODE_PICK_LOCATION);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @OnClick(R.id.duration)
+    void onDurationClicked() {
+
+        DistanceHandler asyncTask =new DistanceHandler();
+        try {
+            duration.setText(asyncTask.execute(fromText.getText().toString(),toText.getText().toString()).get());
+        }catch (Exception e){
+            e.getMessage();
+        }
+    }
+    //this override the implemented method from AsyncResponse
+    @Override
+    public void processFinish(String output){
+        duration.setText(output);
+    }
+
+    @OnClick({R.id.day0, R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6})
     void onDayToggled(ToggleButton view) {
         final Alarm oldAlarm = getAlarm();
         Alarm newAlarm = oldAlarm.toBuilder().build();
@@ -210,6 +296,15 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
             mDays[i].setTextOff(label);
             mDays[i].setChecked(alarm.isRecurring(weekDay));
         }
+    }
+
+    private void bindFrom(Alarm alarm) {
+        Log.d(TAG,"bind from: "+alarm.origin());
+        fromText.setText(alarm.origin());
+    }
+
+    private void bindTo(Alarm alarm) {
+        toText.setText(alarm.destination());
     }
 
     private void bindRingtone() {

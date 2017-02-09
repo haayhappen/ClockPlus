@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package com.haayhappen.clockplus.alarms.ui;
 
+import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.IdRes;
@@ -41,10 +42,10 @@ import com.haayhappen.clockplus.dialogs.AddLabelDialogController;
 import com.haayhappen.clockplus.dialogs.TimePickerDialogController;
 import com.haayhappen.clockplus.list.BaseViewHolder;
 import com.haayhappen.clockplus.list.OnListItemInteractionListener;
-import com.haayhappen.bottomsheetpickers.time.BottomSheetTimePickerDialog.OnTimeSetListener;
 import com.haayhappen.clockplus.timepickers.Utils;
 import com.haayhappen.clockplus.util.FragmentTagUtils;
 import com.haayhappen.clockplus.util.TimeTextUtils;
+import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog.OnTimeSetListener;
 
 import java.util.Date;
 
@@ -58,7 +59,7 @@ import static android.view.View.VISIBLE;
 import static com.haayhappen.clockplus.util.TimeFormatUtils.formatTime;
 
 /**
- * Created by Phillip Hsu on 7/31/2016.
+ * Created by Fynn Merlevede on 7/31/2016.
  */
 public abstract class BaseAlarmViewHolder extends BaseViewHolder<Alarm> {
     private static final String TAG = "BaseAlarmViewHolder";
@@ -78,10 +79,10 @@ public abstract class BaseAlarmViewHolder extends BaseViewHolder<Alarm> {
     @Bind(R.id.label) TextView mLabel;
     @Bind(R.id.dismiss) Button mDismissButton;
 
-    public BaseAlarmViewHolder(ViewGroup parent, @LayoutRes int layoutRes,
+    public BaseAlarmViewHolder(Activity activity,ViewGroup parent, @LayoutRes int layoutRes,
                                OnListItemInteractionListener<Alarm> listener,
                                AlarmController controller) {
-        super(parent, layoutRes, listener);
+        super(activity,parent, layoutRes, listener);
         mAlarmController = controller;
         // Because of VH binding, setting drawable resources on views would be bad for performance.
         // Instead, we create and cache the Drawables once.

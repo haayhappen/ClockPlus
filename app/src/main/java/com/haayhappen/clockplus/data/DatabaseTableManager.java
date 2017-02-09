@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.haayhappen.clockplus.util.LocalBroadcastHelper;
 
 /**
- * Created by Phillip Hsu on 7/30/2016.
+ * Created by Fynn Merlevede on 7/30/2016.
  */
 public abstract class DatabaseTableManager<T extends ObjectWithId> {
     // TODO: Consider implementing BaseColumns for your table schemas.

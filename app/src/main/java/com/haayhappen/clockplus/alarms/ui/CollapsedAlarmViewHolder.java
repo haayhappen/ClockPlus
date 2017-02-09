@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Phillip Hsu
+ * Copyright (C) 2016 Fynn Merlevede
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,15 @@
 
 package com.haayhappen.clockplus.alarms.ui;
 
+import android.app.Activity;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.haayhappen.clockplus.list.OnListItemInteractionListener;
 import com.haayhappen.clockplus.R;
 import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.alarms.misc.AlarmController;
 import com.haayhappen.clockplus.alarms.misc.DaysOfWeek;
+import com.haayhappen.clockplus.list.OnListItemInteractionListener;
 
 import butterknife.Bind;
 
@@ -32,16 +33,16 @@ import static android.view.View.VISIBLE;
 import static com.haayhappen.clockplus.alarms.misc.DaysOfWeek.NUM_DAYS;
 
 /**
- * Created by Phillip Hsu on 5/31/2016.
+ * Created by Fynn Merlevede on 5/31/2016.
  */
 public class CollapsedAlarmViewHolder extends BaseAlarmViewHolder {
 
     @Bind(R.id.countdown) AlarmCountdown mCountdown;
     @Bind(R.id.recurring_days) TextView mDays; // TODO: use `new DateFormatSymbols().getShortWeekdays()` to set texts
 
-    public CollapsedAlarmViewHolder(ViewGroup parent, OnListItemInteractionListener<Alarm> listener,
+    public CollapsedAlarmViewHolder(Activity activity,ViewGroup parent, OnListItemInteractionListener<Alarm> listener,
                                     AlarmController alarmController) {
-        super(parent, R.layout.item_collapsed_alarm, listener, alarmController);
+        super(activity,parent, R.layout.item_collapsed_alarm, listener, alarmController);
     }
 
     @Override

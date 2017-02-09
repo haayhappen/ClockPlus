@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2016 Phillip Hsu
+  ~ Copyright (C) 2016 Fynn Merlevede
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,8 +15,7 @@
   ~ limitations under the License.
   -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <!--<PreferenceCategory android:title="@string/title_category_world_clock">
         <ListPreference
             android:key="@string/key_show_time_offsets_from"
@@ -87,23 +86,5 @@
             android:defaultValue="@string/value_sunday"
             android:summary="%s"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/title_category_timers">
-        <com.philliphsu.clock2.settings.ThemedRingtonePreference
-            android:key="@string/key_timer_ringtone"
-            android:title="@string/title_timer_ringtone"
-            android:ringtoneType="alarm"
-            android:defaultValue="content://settings/system/alarm_alert"/>
-        <ListPreference
-            android:key="@string/key_timer_silence_after"
-            android:title="@string/title_timer_silence_after"
-            android:dialogTitle="@string/title_timer_silence_after"
-            android:entries="@array/entries_duration"
-            android:entryValues="@array/values_duration"
-            android:defaultValue="15"
-            android:summary="%s"/>
-        <SwitchPreference
-            android:key="@string/key_timer_vibrate"
-            android:title="@string/title_timer_vibrate"
-            android:defaultValue="false"/>
-    </PreferenceCategory>
+
 </PreferenceScreen>
