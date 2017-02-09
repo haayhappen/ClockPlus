@@ -17,6 +17,7 @@
 package com.haayhappen.clockplus;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -83,8 +84,12 @@ public class MainActivity extends BaseActivity {
         if (requestCode == REQUEST_CODE_PICK_LOCATION) {
             locationPicker.onLocationPicked(PlacePicker.getPlace(this, data));
         }
+
+
         if (resultCode != RESULT_OK)
             return;
+
+
         // If we get here, either this Activity OR one of its hosted Fragments
         // started a requested Activity for a result. The latter case may seem
         // strange; the Fragment is the one starting the requested Activity, so why

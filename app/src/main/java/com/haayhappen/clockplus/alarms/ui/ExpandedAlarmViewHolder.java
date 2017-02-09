@@ -51,6 +51,8 @@ import com.haayhappen.clockplus.location.DistanceHandler;
 import butterknife.Bind;
 import butterknife.OnClick;
 
+import static com.haayhappen.clockplus.location.DistanceHandler.getDistanceInfo;
+
 /**
  * Created by Fynn Merlevede on 7/31/2016.
  */
@@ -58,6 +60,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
     private static final String TAG = "ExpandedAlarmViewHolder";
     private final ColorStateList mDayToggleColors;
     private final ColorStateList mVibrateColors;
+
     private final RingtonePickerDialogController mRingtonePickerController;
     @Bind(R.id.ok)
     Button mOk;
@@ -73,6 +76,8 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
     TextView fromText;
     @Bind(R.id.to)
     TextView toText;
+    @Bind(R.id.duration)
+    TextView duration;
 
     public ExpandedAlarmViewHolder(Activity activity, ViewGroup parent, final OnListItemInteractionListener<Alarm> listener,
                                    AlarmController controller) {
@@ -238,8 +243,6 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
                         .build();
                 oldAlarm.copyMutableFieldsTo(newAlarm);
                 persistUpdatedAlarm(newAlarm, false);
-
-                DistanceHandler.getDistanceInfo(fromText.getText().toString(),toText.getText().toString());
             }
         });
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -250,6 +253,11 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
         } catch (GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
         }
+    }
+
+    @OnClick(R.id.duration)
+    void onDurationClicked() {
+        duration.setText(DistanceHandler.getDistanceInfo(fromText.getText().toString(),toText.getText().toString()));
     }
 
     @OnClick({R.id.day0, R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6})
