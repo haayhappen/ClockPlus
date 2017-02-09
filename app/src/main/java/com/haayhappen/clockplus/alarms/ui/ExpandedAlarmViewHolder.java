@@ -51,12 +51,12 @@ import com.haayhappen.clockplus.location.DistanceHandler;
 import butterknife.Bind;
 import butterknife.OnClick;
 
-import static com.haayhappen.clockplus.location.DistanceHandler.getDistanceInfo;
+//import static com.haayhappen.clockplus.location.DistanceHandler.getDistanceInfo;
 
 /**
  * Created by Fynn Merlevede on 7/31/2016.
  */
-public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
+public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements DistanceHandler.AsyncResponse {
     private static final String TAG = "ExpandedAlarmViewHolder";
     private final ColorStateList mDayToggleColors;
     private final ColorStateList mVibrateColors;
@@ -257,7 +257,18 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
 
     @OnClick(R.id.duration)
     void onDurationClicked() {
-        duration.setText(DistanceHandler.getDistanceInfo(fromText.getText().toString(),toText.getText().toString()));
+
+        DistanceHandler asyncTask =new DistanceHandler();
+        try {
+            duration.setText(asyncTask.execute(fromText.getText().toString(),toText.getText().toString()).get());
+        }catch (Exception e){
+            e.getMessage();
+        }
+    }
+    //this override the implemented method from AsyncResponse
+    @Override
+    public void processFinish(String output){
+        duration.setText(output);
     }
 
     @OnClick({R.id.day0, R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6})
