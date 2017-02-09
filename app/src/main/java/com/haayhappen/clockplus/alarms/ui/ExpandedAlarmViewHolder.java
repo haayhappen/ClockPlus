@@ -46,6 +46,7 @@ import com.haayhappen.clockplus.dialogs.RingtonePickerDialogController;
 import com.haayhappen.clockplus.list.OnListItemInteractionListener;
 import com.haayhappen.clockplus.timepickers.Utils;
 import com.haayhappen.clockplus.util.FragmentTagUtils;
+import com.haayhappen.clockplus.location.DistanceHandler;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -237,6 +238,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
                         .build();
                 oldAlarm.copyMutableFieldsTo(newAlarm);
                 persistUpdatedAlarm(newAlarm, false);
+                DistanceHandler.getDistanceInfo(fromText.getText().toString(),toText.getText().toString());
             }
         });
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
