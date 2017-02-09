@@ -207,6 +207,14 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
     @OnClick(R.id.to)
     void onToClicked(){
 
+        PlacePicker.IntentBuilder builder =new PlacePicker.IntentBuilder();
+        try {
+            getActivity().startActivityForResult(builder.build(getActivity()),1);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
     }
 
     @OnClick({ R.id.day0, R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6 })
