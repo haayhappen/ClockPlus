@@ -33,8 +33,8 @@ public final class AlarmsTable {
     public static final String COLUMN_HOUR = "hour";
     public static final String COLUMN_MINUTES = "minutes";
     public static final String COLUMN_LABEL = "label";
-    public static final String COLUMN_ORIGIN="origin";
-    public static final String COLUMN_DESTINATION="destination";
+    public static final String COLUMN_ORIGIN= "origin";
+    public static final String COLUMN_DESTINATION= "destination";
     public static final String COLUMN_RINGTONE = "ringtone";
     public static final String COLUMN_VIBRATES = "vibrates";
     public static final String COLUMN_ENABLED = "enabled";
