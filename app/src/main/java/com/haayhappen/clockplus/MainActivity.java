@@ -21,9 +21,12 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.haayhappen.clockplus.alarms.ui.AlarmsFragment;
 import com.haayhappen.clockplus.settings.SettingsActivity;
 
@@ -33,11 +36,22 @@ public class MainActivity extends BaseActivity {
     public static final int PAGE_ALARMS = 0;
     public static final int REQUEST_THEME_CHANGE = 5;
     public static final String EXTRA_SHOW_PAGE = "com.philliphsu.clock2.extra.SHOW_PAGE";
+    public static final int REQUEST_CODE_PICK_LOCATION = 121;
     private static final String TAG = "MainActivity";
     @Bind(R.id.fab)
     FloatingActionButton mFab;
     private AlarmsFragment alarmsFragment;
     private Drawable mAddItemDrawable;
+
+    public void setLocationPicker(LocationPicker locationPicker) {
+        this.locationPicker = locationPicker;
+    }
+
+    public interface LocationPicker {
+        void onLocationPicked(Place place);
+    }
+
+    private LocationPicker locationPicker;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -66,6 +80,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_PICK_LOCATION) {
+            locationPicker.onLocationPicked(PlacePicker.getPlace(this, data));
+        }
         if (resultCode != RESULT_OK)
             return;
         // If we get here, either this Activity OR one of its hosted Fragments
@@ -110,6 +127,7 @@ public class MainActivity extends BaseActivity {
                 break;
         }
     }
+
 
     @Override
     protected int layoutResId() {
