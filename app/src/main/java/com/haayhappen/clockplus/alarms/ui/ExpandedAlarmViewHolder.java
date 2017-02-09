@@ -147,6 +147,8 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
         mRingtonePickerController.tryRestoreCallback(makeTag(R.id.ringtone));
         bindDays(alarm);
         bindRingtone();
+        bindFrom(alarm);
+        bindTo(alarm);
         bindVibrate(alarm.vibrates());
     }
 
@@ -184,7 +186,6 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
     }
 
 
-
     @OnClick(R.id.vibrate)
     void onVibrateToggled() {
         final boolean checked = mVibrate.isChecked();
@@ -202,10 +203,16 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
 
     @OnClick(R.id.from)
     void onFromClicked() {
-        ((MainActivity)getActivity()).setLocationPicker(new MainActivity.LocationPicker() {
+        ((MainActivity) getActivity()).setLocationPicker(new MainActivity.LocationPicker() {
             @Override
             public void onLocationPicked(Place place) {
                 fromText.setText(place.getAddress());
+                final Alarm oldAlarm = getAlarm();
+                Alarm newAlarm = oldAlarm.toBuilder()
+                        .origin(String.valueOf(place.getAddress()))
+                        .build();
+                oldAlarm.copyMutableFieldsTo(newAlarm);
+                persistUpdatedAlarm(newAlarm, false);
             }
         });
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -220,10 +227,16 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
 
     @OnClick(R.id.to)
     void onToClicked() {
-        ((MainActivity)getActivity()).setLocationPicker(new MainActivity.LocationPicker() {
+        ((MainActivity) getActivity()).setLocationPicker(new MainActivity.LocationPicker() {
             @Override
             public void onLocationPicked(Place place) {
                 toText.setText(place.getAddress());
+                final Alarm oldAlarm = getAlarm();
+                Alarm newAlarm = oldAlarm.toBuilder()
+                        .destination(String.valueOf(place.getAddress()))
+                        .build();
+                oldAlarm.copyMutableFieldsTo(newAlarm);
+                persistUpdatedAlarm(newAlarm, false);
             }
         });
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -261,6 +274,15 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
             mDays[i].setTextOff(label);
             mDays[i].setChecked(alarm.isRecurring(weekDay));
         }
+    }
+
+    private void bindFrom(Alarm alarm) {
+        Log.d(TAG,"bind from: "+alarm.origin());
+        fromText.setText(alarm.origin());
+    }
+
+    private void bindTo(Alarm alarm) {
+        toText.setText(alarm.destination());
     }
 
     private void bindRingtone() {

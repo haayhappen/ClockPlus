@@ -58,6 +58,8 @@ public class AlarmCursor extends BaseItemCursor<Alarm> {
                 .vibrates(isTrue(AlarmsTable.COLUMN_VIBRATES))
                 .ringtone(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_RINGTONE)))
                 .label(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_LABEL)))
+                .origin(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_ORIGIN)))
+                .destination(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_DESTINATION)))
                 .build();
         alarm.setId(getLong(getColumnIndexOrThrow(AlarmsTable.COLUMN_ID)));
         alarm.setEnabled(isTrue(AlarmsTable.COLUMN_ENABLED));

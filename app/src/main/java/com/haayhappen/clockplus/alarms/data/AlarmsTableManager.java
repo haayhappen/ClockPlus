@@ -75,6 +75,8 @@ public class AlarmsTableManager extends DatabaseTableManager<Alarm> {
         values.put(AlarmsTable.COLUMN_HOUR, alarm.hour());
         values.put(AlarmsTable.COLUMN_MINUTES, alarm.minutes());
         values.put(AlarmsTable.COLUMN_LABEL, alarm.label());
+        values.put(AlarmsTable.COLUMN_ORIGIN, alarm.origin());
+        values.put(AlarmsTable.COLUMN_DESTINATION,alarm.destination());
         values.put(AlarmsTable.COLUMN_RINGTONE, alarm.ringtone());
         values.put(AlarmsTable.COLUMN_VIBRATES, alarm.vibrates());
         values.put(AlarmsTable.COLUMN_ENABLED, alarm.isEnabled());

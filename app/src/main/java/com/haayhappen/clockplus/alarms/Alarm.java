@@ -32,6 +32,8 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
     public abstract int hour();
     public abstract int minutes();
     public abstract String label();
+    public abstract String origin();
+    public abstract String destination();
     public abstract String ringtone();
     public abstract boolean vibrates();
     /** Initializes a Builder to the same property values as this instance */
@@ -57,6 +59,8 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
                 .hour(0)
                 .minutes(0)
                 .label("")
+                .origin("")
+                .destination("")
                 .ringtone("")
                 .vibrates(false);
     }
@@ -223,6 +227,8 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
         dest.writeInt(hour());
         dest.writeInt(minutes());
         dest.writeString(label());
+        dest.writeString(origin());
+        dest.writeString(destination());
         dest.writeString(ringtone());
         dest.writeInt(vibrates() ? 1 : 0);
         // Mutable fields must be written after the immutable fields,
@@ -241,6 +247,8 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
                 .hour(in.readInt())
                 .minutes(in.readInt())
                 .label(in.readString())
+                .origin(in.readString())
+                .destination(in.readString())
                 .ringtone(in.readString())
                 .vibrates(in.readInt() != 0)
                 .build();
@@ -272,6 +280,8 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
         public abstract Builder hour(int hour);
         public abstract Builder minutes(int minutes);
         public abstract Builder label(String label);
+        public abstract Builder origin(String origin);
+        public abstract Builder destination(String destination);
         public abstract Builder ringtone(String ringtone);
         public abstract Builder vibrates(boolean vibrates);
         /* package */ abstract Alarm autoBuild();
