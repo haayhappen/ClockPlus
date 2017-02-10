@@ -81,6 +81,8 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
     TextView duration;
     @Bind(R.id.b_clear_from)
     ImageButton clearFromButton;
+    @Bind(R.id.b_clear_to)
+    ImageButton clearToButton;
 
     public ExpandedAlarmViewHolder(Activity activity, ViewGroup parent, final OnListItemInteractionListener<Alarm> listener,
                                    AlarmController controller) {
@@ -158,6 +160,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
         bindRingtone();
         bindFrom(alarm);
         bindClearFrom(alarm);
+        bindClearTo(alarm);
         bindTo(alarm);
         bindVibrate(alarm.vibrates());
     }
@@ -273,6 +276,18 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
         }
     }
 
+    @OnClick(R.id.b_clear_to)
+    void onClearTo() {
+        toText.setText("");
+        final Alarm oldAlarm = getAlarm();
+        Alarm newAlarm = oldAlarm.toBuilder()
+                .destination("")
+                .build();
+        oldAlarm.copyMutableFieldsTo(newAlarm);
+        persistUpdatedAlarm(newAlarm, false);
+        bindClearTo(newAlarm);
+    }
+
     @OnClick(R.id.duration)
     void onDurationClicked() {
     }
@@ -323,18 +338,19 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
     }
 
     private void bindFrom(Alarm alarm) {
-        Log.d(TAG, "bind from: " + alarm.origin());
         fromText.setText(alarm.origin().equals("") ? "Mein Standort" : alarm.origin());
     }
 
     private void bindClearFrom(Alarm alarm) {
-        Log.d(TAG,"bindClearFrom: "+alarm.origin());
         clearFromButton.setEnabled(!alarm.origin().equals(""));
     }
 
-
     private void bindTo(Alarm alarm) {
         toText.setText(alarm.destination());
+    }
+
+    private void bindClearTo(Alarm alarm) {
+        clearToButton.setEnabled(!alarm.destination().equals(""));
     }
 
     private void bindRingtone() {
