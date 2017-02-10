@@ -126,19 +126,20 @@
                         android:gravity="center_vertical"
                         android:hint="@string/to" />
 
-                    <TextView
-                        android:id="@+id/duration"
-                        style="@style/BaseLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/label_height"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:drawablePadding="@dimen/text_compound_drawable_padding"
-                        android:gravity="center_vertical"
-                        android:hint="@string/duration" />
+
 
                 </LinearLayout>
-            </RelativeLayout>
 
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/duration"
+                style="@style/BaseLabel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/label_height"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawablePadding="@dimen/text_compound_drawable_padding"
+                android:gravity="center_vertical"
+                android:hint="@string/duration" />
 
             <TextView
                 android:id="@+id/label"
