@@ -303,7 +303,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
                 duration.setText(output);
             }
         });
-       
+
         if (!fromText.getText().equals("") && !toText.getText().equals("")) {
             try {
                 asyncTask.execute(fromText.getText().toString(), toText.getText().toString());
@@ -350,6 +350,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
 
     private void bindTo(Alarm alarm) {
         toText.setText(alarm.destination().getAdress());
+        setDuration();
     }
 
     private void bindClearTo(Alarm alarm) {

@@ -81,7 +81,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_PICK_LOCATION) {
-            locationPicker.onLocationPicked(PlacePicker.getPlace(this, data));
+            if (data != null) {
+                locationPicker.onLocationPicked(PlacePicker.getPlace(this, data));
+            }
         }
 
 
@@ -167,6 +169,5 @@ public class MainActivity extends BaseActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
 }
