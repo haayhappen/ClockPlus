@@ -46,6 +46,7 @@ import com.haayhappen.clockplus.dialogs.RingtonePickerDialog;
 import com.haayhappen.clockplus.dialogs.RingtonePickerDialogController;
 import com.haayhappen.clockplus.list.OnListItemInteractionListener;
 import com.haayhappen.clockplus.location.DistanceHandler;
+import com.haayhappen.clockplus.location.Location;
 import com.haayhappen.clockplus.timepickers.Utils;
 import com.haayhappen.clockplus.util.FragmentTagUtils;
 
@@ -223,7 +224,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
                 setDuration();
                 final Alarm oldAlarm = getAlarm();
                 Alarm newAlarm = oldAlarm.toBuilder()
-                        .origin(String.valueOf(place.getAddress()))
+                        .origin(new Location(String.valueOf(place.getAddress()), place.getLatLng().latitude, place.getLatLng().longitude))
                         .build();
                 oldAlarm.copyMutableFieldsTo(newAlarm);
                 persistUpdatedAlarm(newAlarm, false);
@@ -245,7 +246,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
         duration.setText("");
         final Alarm oldAlarm = getAlarm();
         Alarm newAlarm = oldAlarm.toBuilder()
-                .origin("")
+                .origin(new Location("", 0, 0))
                 .build();
         oldAlarm.copyMutableFieldsTo(newAlarm);
         persistUpdatedAlarm(newAlarm, false);
@@ -261,7 +262,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
                 setDuration();
                 final Alarm oldAlarm = getAlarm();
                 Alarm newAlarm = oldAlarm.toBuilder()
-                        .destination(String.valueOf(place.getAddress()))
+                        .destination(new Location(String.valueOf(place.getAddress()), place.getLatLng().latitude, place.getLatLng().longitude))
                         .build();
                 oldAlarm.copyMutableFieldsTo(newAlarm);
                 persistUpdatedAlarm(newAlarm, false);
@@ -283,7 +284,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
         duration.setText("");
         final Alarm oldAlarm = getAlarm();
         Alarm newAlarm = oldAlarm.toBuilder()
-                .destination("")
+                .destination(new Location("",0,0))
                 .build();
         oldAlarm.copyMutableFieldsTo(newAlarm);
         persistUpdatedAlarm(newAlarm, false);
@@ -295,14 +296,14 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
     }
 
     private void setDuration() {
-        Log.d(TAG,"set duration");
-        DistanceHandler asyncTask = new DistanceHandler();
-        asyncTask.setAsyncResponse(new DistanceHandler.AsyncResponse() {
+        Log.d(TAG, "set duration");
+        DistanceHandler asyncTask = new DistanceHandler(getAlarm().origin(),getAlarm().destination(),new DistanceHandler.AsyncResponse() {
             @Override
             public void processFinish(String output) {
                 duration.setText(output);
             }
         });
+       
         if (!fromText.getText().equals("") && !toText.getText().equals("")) {
             try {
                 asyncTask.execute(fromText.getText().toString(), toText.getText().toString());
@@ -340,19 +341,19 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
     }
 
     private void bindFrom(Alarm alarm) {
-        fromText.setText(alarm.origin().equals("") ? "Mein Standort" : alarm.origin());
+        fromText.setText(alarm.origin().getAdress().equals("") ? "Mein Standort" : alarm.origin().getAdress());
     }
 
     private void bindClearFrom(Alarm alarm) {
-        clearFromButton.setEnabled(!alarm.origin().equals(""));
+        clearFromButton.setEnabled(!alarm.origin().getAdress().equals(""));
     }
 
     private void bindTo(Alarm alarm) {
-        toText.setText(alarm.destination());
+        toText.setText(alarm.destination().getAdress());
     }
 
     private void bindClearTo(Alarm alarm) {
-        clearToButton.setEnabled(!alarm.destination().equals(""));
+        clearToButton.setEnabled(!alarm.destination().getAdress().equals(""));
     }
 
     private void bindRingtone() {

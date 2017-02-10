@@ -22,33 +22,34 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
     private static final String TAG = "DinstanceHandler";
     private static final String API_KEY= "AIzaSyBxeG0NzhUtD3aqIoeNqYX4v1is5L2tOYM";
     private AsyncResponse asyncResponse;
-
-    public void setAsyncResponse(AsyncResponse asyncResponse) {
-        this.asyncResponse = asyncResponse;
-    }
+    private Location origin;
+    private Location destination;
 
     public interface AsyncResponse {
         void processFinish(String output);
     }
+
+    public DistanceHandler(Location origin, Location destination,AsyncResponse asyncResponse) {
+        this.asyncResponse = asyncResponse;
+        this.origin = origin;
+        this.destination=destination;
+    }
+
     @Override
     protected String doInBackground(String... params) {
 
-        String originAdress = null;
+        String origin = null;
+        String destination = null;
         try {
-            originAdress = URLEncoder.encode(params[0],"utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        String destinationAddress = null;
-        try {
-            destinationAddress = URLEncoder.encode(params[1],"utf-8");
+            origin = URLEncoder.encode(this.origin.getLatLng(),"utf-8");
+            destination = URLEncoder.encode(this.destination.getLatLng(),"utf-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
         StringBuilder stringBuilder = new StringBuilder();
         String result="";
-        String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+originAdress+"&destinations="+destinationAddress+"&key="+API_KEY;
+        String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+origin+"&destinations="+destination+"&key="+API_KEY;
 
 
         try {
