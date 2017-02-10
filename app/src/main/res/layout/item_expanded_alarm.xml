@@ -103,17 +103,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/from"
-                        style="@style/BaseLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/label_height"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:drawablePadding="@dimen/text_compound_drawable_padding"
-                        android:drawableStart="@drawable/ic_map_marker_circle"
-                        android:gravity="center_vertical"
-                        android:hint="@string/from" />
+    <ImageButton
+        android:layout_centerVertical="true"
+        android:background="@drawable/close"
+        android:id="@+id/b_clear_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"/>
+    <TextView
+        android:paddingEnd="8dp"
+        android:layout_toStartOf="@id/b_clear_from"
+        android:id="@+id/from"
+        style="@style/BaseLabel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/label_height"
+        android:background="?android:attr/selectableItemBackground"
+        android:drawablePadding="@dimen/text_compound_drawable_padding"
+        android:drawableStart="@drawable/ic_map_marker_circle"
+        android:gravity="center_vertical"
+        android:hint="@string/from" />
+</RelativeLayout>
+
 
                     <TextView
                         android:id="@+id/to"

@@ -29,6 +29,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -44,9 +45,9 @@ import com.haayhappen.clockplus.alarms.misc.DaysOfWeek;
 import com.haayhappen.clockplus.dialogs.RingtonePickerDialog;
 import com.haayhappen.clockplus.dialogs.RingtonePickerDialogController;
 import com.haayhappen.clockplus.list.OnListItemInteractionListener;
+import com.haayhappen.clockplus.location.DistanceHandler;
 import com.haayhappen.clockplus.timepickers.Utils;
 import com.haayhappen.clockplus.util.FragmentTagUtils;
-import com.haayhappen.clockplus.location.DistanceHandler;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -78,6 +79,8 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
     TextView toText;
     @Bind(R.id.duration)
     TextView duration;
+    @Bind(R.id.b_clear_from)
+    ImageButton clearFromButton;
 
     public ExpandedAlarmViewHolder(Activity activity, ViewGroup parent, final OnListItemInteractionListener<Alarm> listener,
                                    AlarmController controller) {
@@ -154,6 +157,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
         bindDays(alarm);
         bindRingtone();
         bindFrom(alarm);
+        bindClearFrom(alarm);
         bindTo(alarm);
         bindVibrate(alarm.vibrates());
     }
@@ -231,6 +235,18 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
         }
     }
 
+    @OnClick(R.id.b_clear_from)
+    void onClearFrom() {
+        fromText.setText("Mein Standort");
+        final Alarm oldAlarm = getAlarm();
+        Alarm newAlarm = oldAlarm.toBuilder()
+                .origin("")
+                .build();
+        oldAlarm.copyMutableFieldsTo(newAlarm);
+        persistUpdatedAlarm(newAlarm, false);
+        bindClearFrom(newAlarm);
+    }
+
     @OnClick(R.id.to)
     void onToClicked() {
         ((MainActivity) getActivity()).setLocationPicker(new MainActivity.LocationPicker() {
@@ -258,16 +274,17 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
     @OnClick(R.id.duration)
     void onDurationClicked() {
 
-        DistanceHandler asyncTask =new DistanceHandler();
+        DistanceHandler asyncTask = new DistanceHandler();
         try {
-            duration.setText(asyncTask.execute(fromText.getText().toString(),toText.getText().toString()).get());
-        }catch (Exception e){
+            duration.setText(asyncTask.execute(fromText.getText().toString(), toText.getText().toString()).get());
+        } catch (Exception e) {
             e.getMessage();
         }
     }
+
     //this override the implemented method from AsyncResponse
     @Override
-    public void processFinish(String output){
+    public void processFinish(String output) {
         duration.setText(output);
     }
 
@@ -299,9 +316,15 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
     }
 
     private void bindFrom(Alarm alarm) {
-        Log.d(TAG,"bind from: "+alarm.origin());
-        fromText.setText(alarm.origin());
+        Log.d(TAG, "bind from: " + alarm.origin());
+        fromText.setText(alarm.origin().equals("") ? "Mein Standort" : alarm.origin());
     }
+
+    private void bindClearFrom(Alarm alarm) {
+        Log.d(TAG,"bindClearFrom: "+alarm.origin());
+        clearFromButton.setEnabled(!alarm.origin().equals(""));
+    }
+
 
     private void bindTo(Alarm alarm) {
         toText.setText(alarm.destination());
