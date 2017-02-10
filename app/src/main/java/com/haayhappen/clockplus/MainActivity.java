@@ -17,17 +17,16 @@
 package com.haayhappen.clockplus;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.haayhappen.clockplus.about.AboutActivity;
 import com.haayhappen.clockplus.alarms.ui.AlarmsFragment;
 import com.haayhappen.clockplus.settings.SettingsActivity;
 
@@ -150,12 +149,20 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected boolean isDisplayShowTitleEnabled() {
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
             startActivityForResult(new Intent(this, SettingsActivity.class), REQUEST_THEME_CHANGE);
             return true;
+        }
+        if (id == R.id.action_about) {
+            startActivity(new Intent(this, AboutActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

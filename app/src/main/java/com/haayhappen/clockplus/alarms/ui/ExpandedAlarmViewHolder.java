@@ -64,9 +64,9 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
 
     private final RingtonePickerDialogController mRingtonePickerController;
     @Bind(R.id.ok)
-    Button mOk;
+    ImageButton mOk;
     @Bind(R.id.delete)
-    Button mDelete;
+    ImageButton mDelete;
     @Bind(R.id.ringtone)
     Button mRingtone;
     @Bind(R.id.vibrate)
@@ -241,7 +241,8 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
 
     @OnClick(R.id.b_clear_from)
     void onClearFrom() {
-        fromText.setText("Mein Standort");
+        fromText.setText(getContext().getString(R.string.my_location));
+        duration.setText("");
         final Alarm oldAlarm = getAlarm();
         Alarm newAlarm = oldAlarm.toBuilder()
                 .origin("")
@@ -279,6 +280,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
     @OnClick(R.id.b_clear_to)
     void onClearTo() {
         toText.setText("");
+        duration.setText("");
         final Alarm oldAlarm = getAlarm();
         Alarm newAlarm = oldAlarm.toBuilder()
                 .destination("")

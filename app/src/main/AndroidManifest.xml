@@ -20,8 +20,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -30,7 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBxeG0NzhUtD3aqIoeNqYX4v1is5L2tOYM"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBxeG0NzhUtD3aqIoeNqYX4v1is5L2tOYM" />
 
         <activity
             android:name=".MainActivity"
@@ -46,7 +48,7 @@
         <receiver
             android:name=".alarms.background.UpcomingAlarmReceiver"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".settings.SettingsActivity"
@@ -57,10 +59,20 @@
                 android:value="com.haayhappen.clockplus.MainActivity" />
         </activity>
 
+
+        <activity
+            android:name=".about.AboutActivity"
+            android:label="@string/about"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.haayhappen.clockplus.MainActivity" />
+        </activity>
+
         <receiver
             android:name=".alarms.background.PendingAlarmScheduler"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
         <receiver
             android:name=".alarms.background.OnBootUpReceiver"
             android:enabled="true"
@@ -73,19 +85,19 @@
         <service
             android:name=".alarms.background.OnBootUpAlarmScheduler"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".ringtone.AlarmActivity"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_ringtone"
             android:launchMode="singleTask"
-            android:taskAffinity="com.haayhappen.clockplus.RingtoneActivity"/>
+            android:taskAffinity="com.haayhappen.clockplus.RingtoneActivity" />
 
         <service
             android:name=".ringtone.playback.AlarmRingtoneService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
     </application>
 
 </manifest>
