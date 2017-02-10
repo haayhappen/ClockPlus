@@ -109,10 +109,11 @@
 
     <ImageButton
         android:layout_centerVertical="true"
-        android:background="@drawable/close"
+        android:src="@drawable/ic_close"
         android:id="@+id/b_clear_from"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:layout_alignParentRight="true"/>
     <TextView
         android:paddingEnd="8dp"

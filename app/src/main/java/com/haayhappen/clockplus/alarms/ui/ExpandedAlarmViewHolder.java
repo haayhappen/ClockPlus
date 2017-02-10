@@ -57,7 +57,7 @@ import butterknife.OnClick;
 /**
  * Created by Fynn Merlevede on 7/31/2016.
  */
-public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements DistanceHandler.AsyncResponse {
+public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
     private static final String TAG = "ExpandedAlarmViewHolder";
     private final ColorStateList mDayToggleColors;
     private final ColorStateList mVibrateColors;
@@ -217,6 +217,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
             @Override
             public void onLocationPicked(Place place) {
                 fromText.setText(place.getAddress());
+                setDuration();
                 final Alarm oldAlarm = getAlarm();
                 Alarm newAlarm = oldAlarm.toBuilder()
                         .origin(String.valueOf(place.getAddress()))
@@ -253,6 +254,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
             @Override
             public void onLocationPicked(Place place) {
                 toText.setText(place.getAddress());
+                setDuration();
                 final Alarm oldAlarm = getAlarm();
                 Alarm newAlarm = oldAlarm.toBuilder()
                         .destination(String.valueOf(place.getAddress()))
@@ -273,19 +275,24 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
 
     @OnClick(R.id.duration)
     void onDurationClicked() {
-
-        DistanceHandler asyncTask = new DistanceHandler();
-        try {
-            duration.setText(asyncTask.execute(fromText.getText().toString(), toText.getText().toString()).get());
-        } catch (Exception e) {
-            e.getMessage();
-        }
     }
 
-    //this override the implemented method from AsyncResponse
-    @Override
-    public void processFinish(String output) {
-        duration.setText(output);
+    private void setDuration() {
+        Log.d(TAG,"set duration");
+        DistanceHandler asyncTask = new DistanceHandler();
+        asyncTask.setAsyncResponse(new DistanceHandler.AsyncResponse() {
+            @Override
+            public void processFinish(String output) {
+                duration.setText(output);
+            }
+        });
+        if (!fromText.getText().equals("") && !toText.getText().equals("")) {
+            try {
+                asyncTask.execute(fromText.getText().toString(), toText.getText().toString());
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        }
     }
 
     @OnClick({R.id.day0, R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6})
