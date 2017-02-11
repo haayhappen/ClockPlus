@@ -96,7 +96,7 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
     /**
      * <b>ONLY CALL THIS WHEN CREATING AN ALARM INSTANCE FROM A CURSOR</b>
      */
-    // TODO: To be even more safe, create a ctor that takes a Cursor and
+    // TODO: To be even more safe, create actor that takes a Cursor and
     // initialize the instance here instead of in AlarmDatabaseHelper.
     public void setSnoozing(long snoozingUntilMillis) {
         this.snoozingUntilMillis = snoozingUntilMillis;
