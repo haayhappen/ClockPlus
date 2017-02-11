@@ -22,6 +22,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -51,15 +52,13 @@ public class UpcomingAlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, final Intent intent) {
 
-        //final Alarm alarm = intent.getParcelableExtra(EXTRA_ALARM);
-        //unmarshall the alarmbytes we receive :
-        byte[] bytes = intent.getParcelableExtra(EXTRA_ALARM);
-        final Alarm alarm = ParcelableUtil.unmarshall(bytes,Alarm.CREATOR);
-        //Parcel parcel = ParcelableUtil.unmarshall(bytes);
-        //final Alarm alarm = Alarm.CREATOR.createFromParcel(parcel);
+        //get extras bundle from pending intent
+        Bundle extras = intent.getExtras();
+        //get the byte array out of the intents' extras
+        byte[] byteArray = extras.getByteArray(EXTRA_ALARM);
+        //unmarshall the array to our parcel(alarm)
+        final Alarm alarm = ParcelableUtil.unmarshall(byteArray,Alarm.CREATOR);
 
-        //TODO remove after debug
-        Log.d(TAG, "Received alarm: "+alarm);
         if (alarm == null) {
             throw new IllegalStateException("No alarm received");
         }
