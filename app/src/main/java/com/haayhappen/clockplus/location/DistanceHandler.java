@@ -26,7 +26,7 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
     private Location destination;
 
     public interface AsyncResponse {
-        void processFinish(String output);
+        void processFinish(long durationInSeconds);
     }
 
     public DistanceHandler(Location origin, Location destination,AsyncResponse asyncResponse) {
@@ -85,7 +85,7 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
                     .getJSONObject(0)
                     .getJSONObject("duration");
 
-            result= jsonRespRouteDuration.get("text").toString();
+            result= jsonRespRouteDuration.get("value").toString();
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -102,6 +102,15 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         Log.d(TAG,"duration calculated; "+result);
-        asyncResponse.processFinish(result);
+        long durationInSeconds=0;
+        try{
+            durationInSeconds= Long.parseLong(result);
+            if(durationInSeconds==0){
+                durationInSeconds++;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        asyncResponse.processFinish(durationInSeconds);
     }
 }
