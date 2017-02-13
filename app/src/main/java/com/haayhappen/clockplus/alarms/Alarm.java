@@ -42,6 +42,8 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
 
     public abstract long duration();
 
+    public abstract long realDuration();
+
     public abstract String ringtone();
 
     public abstract boolean vibrates();
@@ -74,6 +76,7 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
                 .origin(new Location("", 0, 0))
                 .destination(new Location("", 0, 0))
                 .duration(0)
+                .realDuration(0)
                 .ringtone("")
                 .vibrates(false);
     }
@@ -250,6 +253,7 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
         dest.writeDouble(destination().getLatitude());
         dest.writeDouble(destination().getLongitude());
         dest.writeLong(duration());
+        dest.writeLong(realDuration());
         dest.writeString(ringtone());
         dest.writeInt(vibrates() ? 1 : 0);
         // Mutable fields must be written after the immutable fields,
@@ -271,6 +275,7 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
                 .origin(new Location(in.readString(), in.readDouble(), in.readDouble()))
                 .destination(new Location(in.readString(), in.readDouble(), in.readDouble()))
                 .duration(in.readLong())
+                .realDuration(in.readLong())
                 .ringtone(in.readString())
                 .vibrates(in.readInt() != 0)
                 .build();
@@ -310,6 +315,8 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
         public abstract Builder destination(Location destination);
 
         public abstract Builder duration(long duration);
+
+        public abstract Builder realDuration(long duration);
 
         public abstract Builder ringtone(String ringtone);
 

@@ -41,6 +41,7 @@ public final class AlarmsTable {
     public static final String COLUMN_DESTINATION_LATITUDE = "destination_latitude";
     public static final String COLUMN_DESTINATION_LONGITUDE = "destination_longitude";
     public static final String COLUMN_DURATION="duration";
+    public static final String COLUMN_REAL_DURATION="real_duration";
     public static final String COLUMN_RINGTONE = "ringtone";
     public static final String COLUMN_VIBRATES = "vibrates";
     public static final String COLUMN_ENABLED = "enabled";
@@ -109,6 +110,7 @@ public final class AlarmsTable {
                 + COLUMN_DESTINATION_LATITUDE + " REAL, "
                 + COLUMN_DESTINATION_LONGITUDE + " REAL, "
                 + COLUMN_DURATION + " INTEGER, "
+                + COLUMN_REAL_DURATION + " INTEGER, "
                 + COLUMN_RINGTONE + " TEXT NOT NULL, "
                 + COLUMN_VIBRATES + " INTEGER NOT NULL, "
                 + COLUMN_ENABLED + " INTEGER NOT NULL, "

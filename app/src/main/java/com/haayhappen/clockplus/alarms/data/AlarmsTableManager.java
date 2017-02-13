@@ -82,6 +82,7 @@ public class AlarmsTableManager extends DatabaseTableManager<Alarm> {
         values.put(AlarmsTable.COLUMN_DESTINATION_LATITUDE, alarm.destination().getLatitude());
         values.put(AlarmsTable.COLUMN_DESTINATION_LONGITUDE, alarm.destination().getLongitude());
         values.put(AlarmsTable.COLUMN_DURATION, alarm.duration());
+        values.put(AlarmsTable.COLUMN_REAL_DURATION, alarm.realDuration());
         values.put(AlarmsTable.COLUMN_RINGTONE, alarm.ringtone());
         values.put(AlarmsTable.COLUMN_VIBRATES, alarm.vibrates());
         values.put(AlarmsTable.COLUMN_ENABLED, alarm.isEnabled());

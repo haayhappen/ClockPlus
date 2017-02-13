@@ -65,7 +65,8 @@ public class AlarmCursor extends BaseItemCursor<Alarm> {
                 .destination(new Location(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_DESTINATION_ADRESS)),
                         getDouble(getColumnIndexOrThrow(AlarmsTable.COLUMN_DESTINATION_LATITUDE)),
                         getDouble(getColumnIndexOrThrow(AlarmsTable.COLUMN_DESTINATION_LONGITUDE))))
-                .duration(getInt(getColumnIndexOrThrow(AlarmsTable.COLUMN_DURATION)))
+                .duration(getLong(getColumnIndexOrThrow(AlarmsTable.COLUMN_DURATION)))
+                .realDuration(getLong(getColumnIndexOrThrow(AlarmsTable.COLUMN_REAL_DURATION)))
                 .build();
         alarm.setId(getLong(getColumnIndexOrThrow(AlarmsTable.COLUMN_ID)));
         alarm.setEnabled(isTrue(AlarmsTable.COLUMN_ENABLED));
