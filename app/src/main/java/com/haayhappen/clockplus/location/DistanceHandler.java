@@ -138,7 +138,6 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
                 delay = jsonDuration.get("value").toString();
             }
 
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
