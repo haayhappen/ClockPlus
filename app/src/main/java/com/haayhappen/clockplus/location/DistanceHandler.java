@@ -1,7 +1,6 @@
 package com.haayhappen.clockplus.location;
 
 import android.os.AsyncTask;
-import android.os.StrictMode;
 import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Locale;
 
 /**
  * Created by Fynn on 09.02.2017.
@@ -24,6 +24,18 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
     private AsyncResponse asyncResponse;
     private Location origin;
     private Location destination;
+    private String duration = null;
+    private String durationInTraffic = null;
+    private Long durationLong = null;
+    private Long durationInTrafficLong = null;
+    private String language = Locale.getDefault().toString();
+    private String delay ="";
+
+    ///for later use:
+    //IMPORTANT: departure_time uses EPOCH time format -> use Clock time format and convert to epoch seconds
+    private String departureTime = "now";
+    private String trafficModel = "best_guess";
+    ///
 
     public interface AsyncResponse {
         void processFinish(long durationInSeconds);
@@ -40,6 +52,8 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
 
         String origin = null;
         String destination = null;
+
+
         try {
             origin = URLEncoder.encode(this.origin.getLatLng(),"utf-8");
             destination = URLEncoder.encode(this.destination.getLatLng(),"utf-8");
@@ -48,8 +62,16 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
         }
 
         StringBuilder stringBuilder = new StringBuilder();
-        String result="";
-        String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+origin+"&destinations="+destination+"&key="+API_KEY;
+
+
+
+        //DEPRECATED Nur Duration
+        //String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+origin+"&destinations="+destination+"&key="+API_KEY;
+
+        //Get Duration and duration in Traffic
+        //TODO set the departure time related to how early the alarm will be triggered
+                    //https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}/&destinations=${destinations}&mode=driving&departure_time=now&traffic_model=best_guess&language=de-DE&key=AIzaSyBxeG0NzhUtD3aqIoeNqYX4v1is5L2tOYM
+        String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+origin+"&destinations="+destination+"&mode=driving&departure_time="+departureTime+"&traffic_model="+trafficModel+"&language="+language+"&key="+API_KEY;
 
 
         try {
@@ -78,19 +100,49 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
 
         try {
 
-            JSONObject jsonRespRouteDuration = new JSONObject(stringBuilder.toString())
+            //get normal duration
+            JSONObject jsonDuration = new JSONObject(stringBuilder.toString())
                     .getJSONArray("rows")
                     .getJSONObject(0)
                     .getJSONArray ("elements")
                     .getJSONObject(0)
                     .getJSONObject("duration");
 
-            result= jsonRespRouteDuration.get("value").toString();
+            durationLong = (Long)jsonDuration.get("value");
+
+            //get duration in traffic
+            JSONObject jsonDurationInTraffic = new JSONObject(stringBuilder.toString())
+                    .getJSONArray("rows")
+                    .getJSONObject(0)
+                    .getJSONArray ("elements")
+                    .getJSONObject(0)
+                    .getJSONObject("duration_in_traffic");
+
+            durationInTrafficLong = (Long)jsonDurationInTraffic.get("value");
+
+            //Get delay if one exists:
+            if (durationInTrafficLong > durationLong){
+                try{
+                    Long del;
+                    del = (durationInTrafficLong-durationLong);
+                    del = del/60;
+                    //delay in minutes
+                    delay = del+" Minutes delay";
+                }
+                catch (NumberFormatException nfe){
+                    nfe.printStackTrace();
+                }
+            }
+            else{
+                //there is no delay
+                delay = jsonDuration.get("value").toString();
+            }
+
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return result;
+        return delay;
     }
 
     @Override
