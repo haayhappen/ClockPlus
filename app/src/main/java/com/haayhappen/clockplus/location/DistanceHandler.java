@@ -13,6 +13,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Locale;
 
+import static android.R.attr.delay;
+
 /**
  * Created by Fynn on 09.02.2017.
  */
@@ -29,11 +31,11 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
     private Long durationLong = null;
     private Long durationInTrafficLong = null;
     private String language = Locale.getDefault().toString();
-    private String delay ="";
+    private Long delay =0L;
 
     ///for later use:
     //IMPORTANT: departure_time uses EPOCH time format -> use Clock time format and convert to epoch seconds
-    private String departureTime = "now";
+    private String departureTime = "1487660400";
     private String trafficModel = "best_guess";
     ///
 
@@ -108,7 +110,7 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
                     .getJSONObject(0)
                     .getJSONObject("duration");
 
-            durationLong = (Long)jsonDuration.get("value");
+            durationLong = Long.parseLong(jsonDuration.get("value").toString());
 
             //get duration in traffic
             JSONObject jsonDurationInTraffic = new JSONObject(stringBuilder.toString())
@@ -118,16 +120,16 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
                     .getJSONObject(0)
                     .getJSONObject("duration_in_traffic");
 
-            durationInTrafficLong = (Long)jsonDurationInTraffic.get("value");
+            durationInTrafficLong = Long.parseLong(jsonDurationInTraffic.get("value").toString());
 
             //Get delay if one exists:
             if (durationInTrafficLong > durationLong){
                 try{
                     Long del;
                     del = (durationInTrafficLong-durationLong);
-                    del = del/60;
-                    //delay in minutes
-                    delay = del+" Minutes delay";
+                    //del = del/60;
+                    //delay in seconds
+                    delay = del;
                 }
                 catch (NumberFormatException nfe){
                     nfe.printStackTrace();
@@ -135,13 +137,13 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
             }
             else{
                 //there is no delay
-                delay = jsonDuration.get("value").toString();
+                delay = Long.parseLong(jsonDuration.get("value").toString());
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return delay;
+        return delay.toString();
     }
 
     @Override
@@ -150,12 +152,12 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        super.onPostExecute(result);
-        Log.d(TAG,"duration calculated; "+result);
+    protected void onPostExecute(String delay) {
+        super.onPostExecute(delay);
+        Log.d(TAG,"duration calculated: "+ delay);
         long durationInSeconds=0;
         try{
-            durationInSeconds= Long.parseLong(result);
+            durationInSeconds= Long.parseLong(delay);
             if(durationInSeconds==0){
                 durationInSeconds++;
             }
