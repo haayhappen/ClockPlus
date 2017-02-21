@@ -29,6 +29,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.haayhappen.clockplus.about.AboutActivity;
 import com.haayhappen.clockplus.alarms.ui.AlarmsFragment;
+import com.haayhappen.clockplus.intro.IntroActivity;
 import com.haayhappen.clockplus.settings.SettingsActivity;
 
 import butterknife.Bind;
@@ -82,7 +83,7 @@ public class MainActivity extends BaseActivity {
 
         if (prefs.getBoolean("firstrun", true)) {
            //Call Intro slides
-
+            startActivity(new Intent(this, IntroActivity.class));
 
             prefs.edit().putBoolean("firstrun", false).commit();
         }

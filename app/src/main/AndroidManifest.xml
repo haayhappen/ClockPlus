@@ -69,6 +69,14 @@
                 android:value="com.haayhappen.clockplus.MainActivity" />
         </activity>
 
+        <activity
+            android:name="intro.IntroActivity"
+            android:theme="@style/Theme.Intro"
+            android:parentActivityName=".MainActivity"/>
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.haayhappen.clockplus.MainActivity" />
+
         <receiver
             android:name=".alarms.background.PendingAlarmScheduler"
             android:enabled="true"
@@ -93,6 +101,8 @@
             android:label="@string/title_activity_ringtone"
             android:launchMode="singleTask"
             android:taskAffinity="com.haayhappen.clockplus.RingtoneActivity" />
+
+
 
         <service
             android:name=".ringtone.playback.AlarmRingtoneService"
