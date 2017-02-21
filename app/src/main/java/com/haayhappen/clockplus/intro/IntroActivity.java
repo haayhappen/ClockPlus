@@ -36,7 +36,7 @@ public class IntroActivity extends MaterialIntroActivity {
                         .backgroundColor(R.color.first_slide_background)
                         .buttonsColor(R.color.first_slide_buttons)
                         .image(R.drawable.img_office)
-                        .title("Organize your time with us")
+                        .title("Setting up alarms has never been easier!")
                         .description("Would you try?")
                         .build(),
                 new MessageButtonBehaviour(new View.OnClickListener() {
@@ -53,7 +53,7 @@ public class IntroActivity extends MaterialIntroActivity {
                 .description("Go on")
                 .build());
 
-        addSlide(new CustomSlide());
+        //addSlide(new CustomSlide());
 
         addSlide(new SlideFragmentBuilder()
                         .backgroundColor(R.color.third_slide_background)
