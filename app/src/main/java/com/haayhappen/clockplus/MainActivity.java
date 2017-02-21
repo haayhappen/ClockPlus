@@ -17,6 +17,7 @@
 package com.haayhappen.clockplus;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity {
     FloatingActionButton mFab;
     private AlarmsFragment alarmsFragment;
     private Drawable mAddItemDrawable;
+    private SharedPreferences prefs = null;
 
     public void setLocationPicker(LocationPicker locationPicker) {
         this.locationPicker = locationPicker;
@@ -69,8 +71,22 @@ public class MainActivity extends BaseActivity {
 
         mAddItemDrawable = ContextCompat.getDrawable(this, R.drawable.ic_add_24dp);
         getSupportActionBar().setTitle(getString(R.string.app_name));
+
+        //Intro
+        prefs = getSharedPreferences("com.haayhappen.clockplus", MODE_PRIVATE);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (prefs.getBoolean("firstrun", true)) {
+           //Call Intro slides
+
+
+            prefs.edit().putBoolean("firstrun", false).commit();
+        }
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {

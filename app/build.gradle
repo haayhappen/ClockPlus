@@ -70,5 +70,6 @@ dependencies {
     compile project(":bottomsheetpickers-release")
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.google.android.gms:play-services:10.0.1'
+    compile 'agency.tango.android:material-intro-screen:0.0.5'
     testCompile 'junit:junit:4.12'
 }

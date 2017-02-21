@@ -2,8 +2,10 @@ package com.haayhappen.clockplus.location;
 
 import android.os.AsyncTask;
 import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -12,8 +14,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Locale;
-
-import static android.R.attr.delay;
 
 /**
  * Created by Fynn on 09.02.2017.
@@ -35,7 +35,7 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
 
     ///for later use:
     //IMPORTANT: departure_time uses EPOCH time format -> use Clock time format and convert to epoch seconds
-    private String departureTime = "1487660400";
+    private String departureTime = "1487751000";
     private String trafficModel = "best_guess";
     ///
 
