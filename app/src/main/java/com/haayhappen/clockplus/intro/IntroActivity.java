@@ -34,8 +34,8 @@ public class IntroActivity extends MaterialIntroActivity {
                         .backgroundColor(R.color.intro_slides_background)
                         .buttonsColor(R.color.intro_slides_buttons)
                        .image(R.drawable.intro_slides_2)
-                        .title("Easily set up Alarms")
-                        .description("It's never been that easy!")
+                        .title("Unlimited Alarms")
+                        //.description("It's never been that easy!")
                         .build());
         /*,
                 new MessageButtonBehaviour(new View.OnClickListener() {
@@ -49,8 +49,8 @@ public class IntroActivity extends MaterialIntroActivity {
                 .backgroundColor(R.color.intro_slides_background)
                 .buttonsColor(R.color.intro_slides_buttons)
                 .image(R.drawable.intro_slides_1)
-                .title("Simply add a route")
-                .description("We will handle the rest..")
+                .title("Routes")
+                .description("Add a Route to your alarm")
                 .build());
 
 
@@ -77,8 +77,8 @@ public class IntroActivity extends MaterialIntroActivity {
                 .backgroundColor(R.color.intro_slides_background)
                 .buttonsColor(R.color.intro_slides_buttons)
                 .image(R.drawable.intro_slides_3)
-                .title("Be late, never again!")
-                .description("We watch for traffic while you are asleep.")
+                .title("You sleep!")
+                .description("We watch the traffic.")
                 .build());
     }
 
