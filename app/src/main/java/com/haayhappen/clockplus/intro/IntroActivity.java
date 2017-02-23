@@ -9,7 +9,6 @@ import android.widget.Toast;
 import com.haayhappen.clockplus.R;
 
 import agency.tango.materialintroscreen.MaterialIntroActivity;
-import agency.tango.materialintroscreen.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.SlideFragmentBuilder;
 import agency.tango.materialintroscreen.animations.IViewTranslation;
 
@@ -34,22 +33,24 @@ public class IntroActivity extends MaterialIntroActivity {
         addSlide(new SlideFragmentBuilder()
                         .backgroundColor(R.color.intro_slides_background)
                         .buttonsColor(R.color.intro_slides_buttons)
-                       // .image(R.drawable.img_office)
-                        .title("Setting up alarms has never been easier!")
-                        .description("Would you try?")
-                        .build(),
+                       .image(R.drawable.intro_slides_2)
+                        .title("Easily set up Alarms")
+                        .description("It's never been that easy!")
+                        .build());
+        /*,
                 new MessageButtonBehaviour(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         showMessage("We provide solutions to make you love your work");
                     }
-                }, "Work with love"));
-
+                }, "Set up Alarm"));
+*/
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.intro_slides_background)
                 .buttonsColor(R.color.intro_slides_buttons)
-                .title("Want more?")
-                .description("Go on")
+                .image(R.drawable.intro_slides_1)
+                .title("Simply add a route")
+                .description("We will handle the rest..")
                 .build());
 
 
@@ -75,14 +76,15 @@ public class IntroActivity extends MaterialIntroActivity {
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.intro_slides_background)
                 .buttonsColor(R.color.intro_slides_buttons)
-                .title("That's it")
-                .description("Would you join us?")
+                .image(R.drawable.intro_slides_3)
+                .title("Be late, never again!")
+                .description("We watch for traffic while you are asleep.")
                 .build());
     }
 
     @Override
     public void onFinish() {
         super.onFinish();
-        Toast.makeText(this, "Try this library in your project! :)", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Awesome App!", Toast.LENGTH_SHORT).show();
     }
 }
