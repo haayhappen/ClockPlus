@@ -53,4 +53,9 @@
 
     <color name="custom_slide_background">#3F51B5</color>
     <color name="custom_slide_buttons">#1A237E</color>
+
+    <color name="intro_slides_background">#41414c</color>
+    <color name="intro_slides_buttons">#eb6164</color>
+
+
 </resources>

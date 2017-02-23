@@ -1,6 +1,5 @@
 package com.haayhappen.clockplus.intro;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.FloatRange;
 import android.support.annotation.Nullable;
@@ -15,7 +14,7 @@ import agency.tango.materialintroscreen.SlideFragmentBuilder;
 import agency.tango.materialintroscreen.animations.IViewTranslation;
 
 /**
- * Created by uidp0609 on 21.02.2017.
+ * Created by Fynn on 21.02.2017.
  */
 
 public class IntroActivity extends MaterialIntroActivity {
@@ -33,9 +32,9 @@ public class IntroActivity extends MaterialIntroActivity {
                 });
 
         addSlide(new SlideFragmentBuilder()
-                        .backgroundColor(R.color.first_slide_background)
-                        .buttonsColor(R.color.first_slide_buttons)
-                        .image(R.drawable.img_office)
+                        .backgroundColor(R.color.intro_slides_background)
+                        .buttonsColor(R.color.intro_slides_buttons)
+                       // .image(R.drawable.img_office)
                         .title("Setting up alarms has never been easier!")
                         .description("Would you try?")
                         .build(),
@@ -47,20 +46,22 @@ public class IntroActivity extends MaterialIntroActivity {
                 }, "Work with love"));
 
         addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.second_slide_background)
-                .buttonsColor(R.color.second_slide_buttons)
+                .backgroundColor(R.color.intro_slides_background)
+                .buttonsColor(R.color.intro_slides_buttons)
                 .title("Want more?")
                 .description("Go on")
                 .build());
 
-        //addSlide(new CustomSlide());
 
-        addSlide(new SlideFragmentBuilder()
-                        .backgroundColor(R.color.third_slide_background)
-                        .buttonsColor(R.color.third_slide_buttons)
+/*
+       addSlide(new CustomSlide());
+
+       addSlide(new SlideFragmentBuilder()
+                        .backgroundColor(R.color.intro_slides_background)
+                        .buttonsColor(R.color.intro_slides_buttons)
                         .possiblePermissions(new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.READ_SMS})
-                        .neededPermissions(new String[]{Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
-                        .image(R.drawable.img_equipment)
+                        //.neededPermissions(new String[]{Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
+                        //.image(R.drawable.img_equipment)
                         .title("We provide best tools")
                         .description("ever")
                         .build(),
@@ -70,10 +71,10 @@ public class IntroActivity extends MaterialIntroActivity {
                         showMessage("Try us!");
                     }
                 }, "Tools"));
-
+*/
         addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.fourth_slide_background)
-                .buttonsColor(R.color.fourth_slide_buttons)
+                .backgroundColor(R.color.intro_slides_background)
+                .buttonsColor(R.color.intro_slides_buttons)
                 .title("That's it")
                 .description("Would you join us?")
                 .build());

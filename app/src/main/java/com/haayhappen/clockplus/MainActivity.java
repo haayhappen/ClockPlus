@@ -79,13 +79,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        if (prefs.getBoolean("firstrun", true)) {
+        //if (prefs.getBoolean("firstrun", true)) {
             startActivity(new Intent(this, IntroActivity.class));
 
             // Do first run stuff here then set 'firstrun' as false
             // using the following line to edit/commit prefs
-            prefs.edit().putBoolean("firstrun", false).commit();
-        }
+          //  prefs.edit().putBoolean("firstrun", false).commit();
+        //}
         super.onResume();
     }
 
