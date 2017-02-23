@@ -111,10 +111,11 @@
 
     <!-- ==================================== ABOUT ACTIVITY =================================== -->
     <string name="about">About</string>
-aosp    <!-- ======================================================================================= -->
+    <!-- ======================================================================================= -->
     <string name="from">From</string>
     <string name="to">To</string>
     <string name="duration">Duration</string>
     <string name="my_location">My location</string>
+    <string name="intro">Intro</string>
 
 </resources>

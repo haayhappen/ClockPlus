@@ -73,17 +73,17 @@ public class MainActivity extends BaseActivity {
         mAddItemDrawable = ContextCompat.getDrawable(this, R.drawable.ic_add_24dp);
         getSupportActionBar().setTitle(getString(R.string.app_name));
 
+        //TODO delete when published
+        startActivity(new Intent(this, IntroActivity.class));
         //Intro
         prefs = getSharedPreferences("com.haayhappen.clockplus", MODE_PRIVATE);
     }
 
     @Override
     protected void onResume() {
+        //TODO activate when published
         //if (prefs.getBoolean("firstrun", true)) {
-            startActivity(new Intent(this, IntroActivity.class));
-
-            // Do first run stuff here then set 'firstrun' as false
-            // using the following line to edit/commit prefs
+            //startActivity(new Intent(this, IntroActivity.class));
           //  prefs.edit().putBoolean("firstrun", false).commit();
         //}
         super.onResume();
@@ -182,6 +182,9 @@ public class MainActivity extends BaseActivity {
         }
         if (id == R.id.action_about) {
             startActivity(new Intent(this, AboutActivity.class));
+        }
+        if (id == R.id.action_intro) {
+            startActivity(new Intent(this, IntroActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
