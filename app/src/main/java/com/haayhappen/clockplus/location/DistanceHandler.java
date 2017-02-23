@@ -13,6 +13,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -35,7 +38,13 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
 
     ///for later use:
     //IMPORTANT: departure_time uses EPOCH time format -> use Clock time format and convert to epoch seconds
-    private String departureTime = "1487751000";
+    //get time from alarm TODO HOW ?
+    private String departureTime = "";
+
+
+
+
+
     private String trafficModel = "best_guess";
     ///
 
@@ -54,6 +63,9 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
 
         String origin = null;
         String destination = null;
+
+        //get alarm time converted to epoch which is needed for the api
+        departureTime = convertToEpoch("Jun 13 2003 23:11:52.454 UTC");
 
 
         try {
@@ -165,5 +177,18 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
         asyncResponse.processFinish(durationInSeconds);
+    }
+
+    protected String convertToEpoch(String alarmDate){
+        SimpleDateFormat df = new SimpleDateFormat("MMM dd yyyy HH:mm:ss.SSS zzz");
+        Date date = null;
+        try {
+            date = df.parse(alarmDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String epoch = Long.toString(date.getTime());
+
+        return epoch;
     }
 }
