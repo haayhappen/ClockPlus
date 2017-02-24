@@ -3,6 +3,8 @@ package com.haayhappen.clockplus.location;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.haayhappen.clockplus.alarms.Alarm;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,14 +29,13 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
     private static final String TAG = "DinstanceHandler";
     private static final String API_KEY= "AIzaSyBxeG0NzhUtD3aqIoeNqYX4v1is5L2tOYM";
     private AsyncResponse asyncResponse;
-    private Location origin;
-    private Location destination;
     private String duration = null;
     private String durationInTraffic = null;
     private Long durationLong = null;
     private Long durationInTrafficLong = null;
     private String language = Locale.getDefault().toString();
     private Long delay =0L;
+    private Alarm alarm;
 
     ///for later use:
     //IMPORTANT: departure_time uses EPOCH time format -> use Clock time format and convert to epoch seconds
@@ -52,10 +53,9 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
         void processFinish(long durationInSeconds);
     }
 
-    public DistanceHandler(Location origin, Location destination,AsyncResponse asyncResponse) {
+    public DistanceHandler(Alarm alarm, AsyncResponse asyncResponse) {
         this.asyncResponse = asyncResponse;
-        this.origin = origin;
-        this.destination=destination;
+        this.alarm= alarm;
     }
 
     @Override
@@ -69,8 +69,8 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
 
 
         try {
-            origin = URLEncoder.encode(this.origin.getLatLng(),"utf-8");
-            destination = URLEncoder.encode(this.destination.getLatLng(),"utf-8");
+            origin = URLEncoder.encode(this.alarm.origin().getLatLng(),"utf-8");
+            destination = URLEncoder.encode(this.alarm.destination().getLatLng(),"utf-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
