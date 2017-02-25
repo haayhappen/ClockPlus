@@ -64,9 +64,9 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
         String origin = null;
         String destination = null;
 
-        //get alarm time converted to epoch which is needed for the api
-        departureTime = convertToEpoch("Jun 13 2003 23:11:52.454 UTC");
-
+        //get ring time in epoch for api
+        Long epoch = alarm.ringsAt()/1000;
+        departureTime = epoch.toString();
 
         try {
             origin = URLEncoder.encode(this.alarm.origin().getLatLng(),"utf-8");
@@ -76,17 +76,7 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
         }
 
         StringBuilder stringBuilder = new StringBuilder();
-
-
-
-        //DEPRECATED Nur Duration
-        //String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+origin+"&destinations="+destination+"&key="+API_KEY;
-
-        //Get Duration and duration in Traffic
-        //TODO set the departure time related to how early the alarm will be triggered
-                    //https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}/&destinations=${destinations}&mode=driving&departure_time=now&traffic_model=best_guess&language=de-DE&key=AIzaSyBxeG0NzhUtD3aqIoeNqYX4v1is5L2tOYM
         String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+origin+"&destinations="+destination+"&mode=driving&departure_time="+departureTime+"&traffic_model="+trafficModel+"&language="+language+"&key="+API_KEY;
-
 
         try {
             URL httppost = new URL(url);
@@ -179,6 +169,7 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
         asyncResponse.processFinish(durationInSeconds);
     }
 
+    @Deprecated
     protected String convertToEpoch(String alarmDate){
         SimpleDateFormat df = new SimpleDateFormat("MMM dd yyyy HH:mm:ss.SSS zzz");
         Date date = null;
