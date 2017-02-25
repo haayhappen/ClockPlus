@@ -131,6 +131,7 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
                     del = (durationInTrafficLong-durationLong);
                     //del = del/60;
                     //delay in seconds
+                    //TODO Philipp : subtract delay time from alarm ringtime, so alarm rings earlier -how the fuck
                     delay = del;
                 }
                 catch (NumberFormatException nfe){
