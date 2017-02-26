@@ -299,8 +299,18 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
         Log.d(TAG, "set duration");
         DistanceHandler asyncTask = new DistanceHandler(getAlarm(),new DistanceHandler.AsyncResponse() {
             @Override
-            public void processFinish(long durationInSeconds) {
-                duration.setText(String.valueOf(durationInSeconds));
+            public void processFinish(long delay) {
+                //#################new############
+                int min=0;
+                min = (int)delay;
+                final Alarm oldAlarm = getAlarm();
+                Alarm newAlarm = oldAlarm.toBuilder()
+                        .minutes(min)
+                        .build();
+                oldAlarm.copyMutableFieldsTo(newAlarm);
+                persistUpdatedAlarm(newAlarm, false);
+                //#############################
+                duration.setText(String.valueOf(min)+"delay");
             }
         });
 

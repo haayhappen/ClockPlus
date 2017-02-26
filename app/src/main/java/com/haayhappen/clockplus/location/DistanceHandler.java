@@ -20,11 +20,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.haayhappen.clockplus.R.string.minute;
+
 /**
  * Created by Fynn on 09.02.2017.
  */
 
-public class DistanceHandler extends AsyncTask<String, Void, String> {
+public class DistanceHandler extends AsyncTask<String, Void, Long> {
 
     private static final String TAG = "DinstanceHandler";
     private static final String API_KEY= "AIzaSyBxeG0NzhUtD3aqIoeNqYX4v1is5L2tOYM";
@@ -36,10 +38,6 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
     private String language = Locale.getDefault().toString();
     private Long delay =0L;
     private Alarm alarm;
-
-    ///for later use:
-    //IMPORTANT: departure_time uses EPOCH time format -> use Clock time format and convert to epoch seconds
-    //get time from alarm TODO HOW ?
     private String departureTime = "";
 
 
@@ -59,7 +57,7 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected Long doInBackground(String... params) {
 
         String origin = null;
         String destination = null;
@@ -146,7 +144,7 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return delay.toString();
+        return delay;
     }
 
     @Override
@@ -155,32 +153,9 @@ public class DistanceHandler extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String delay) {
+    protected void onPostExecute(Long delay) {
         super.onPostExecute(delay);
         Log.d(TAG,"duration calculated: "+ delay);
-        long durationInSeconds=0;
-        try{
-            durationInSeconds= Long.parseLong(delay);
-            if(durationInSeconds==0){
-                durationInSeconds++;
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        asyncResponse.processFinish(durationInSeconds);
-    }
-
-    @Deprecated
-    protected String convertToEpoch(String alarmDate){
-        SimpleDateFormat df = new SimpleDateFormat("MMM dd yyyy HH:mm:ss.SSS zzz");
-        Date date = null;
-        try {
-            date = df.parse(alarmDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String epoch = Long.toString(date.getTime());
-
-        return epoch;
+        asyncResponse.processFinish(delay);
     }
 }
