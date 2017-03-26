@@ -102,6 +102,7 @@ public class DistanceHandler extends AsyncTask<String, Void, Long> {
 
         try {
 
+
             //get normal duration
             JSONObject jsonDuration = new JSONObject(stringBuilder.toString())
                     .getJSONArray("rows")
