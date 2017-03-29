@@ -50,6 +50,8 @@ import com.haayhappen.clockplus.location.Location;
 import com.haayhappen.clockplus.timepickers.Utils;
 import com.haayhappen.clockplus.util.FragmentTagUtils;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.Bind;
 import butterknife.OnClick;
 
@@ -299,13 +301,14 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
         Log.d(TAG, "set duration");
         DistanceHandler asyncTask = new DistanceHandler(getAlarm(),new DistanceHandler.AsyncResponse() {
             @Override
-            public void processFinish(long delay) {
+            public void processFinish(long delaySecs) {
                 //#################new############
-                int min=0;
-                min = (int)delay;
+                int min = (int)TimeUnit.SECONDS.toMinutes(delaySecs);
                 final Alarm oldAlarm = getAlarm();
+                int oldmin = oldAlarm.minutes();
+                int newmin = oldmin - min;
                 Alarm newAlarm = oldAlarm.toBuilder()
-                        .minutes(min)
+                        .minutes(newmin)
                         .build();
                 oldAlarm.copyMutableFieldsTo(newAlarm);
                 persistUpdatedAlarm(newAlarm, false);
