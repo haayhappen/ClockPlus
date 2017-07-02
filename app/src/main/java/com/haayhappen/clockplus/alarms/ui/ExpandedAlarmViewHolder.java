@@ -315,7 +315,6 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
                 int delayHours = delayMinutes / 60;
                 delayMinutes = delayMinutes % 60;
 
-
                 Date d = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                 try {
@@ -337,6 +336,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
                     cal.add(Calendar.HOUR_OF_DAY,-Math.abs(delayHours));
                     cal.add(Calendar.MINUTE,-Math.abs(delayMinutes));
                 }
+
 
                 Log.d("ExpandedAlarmViewHolder","calendar time after set: "+cal.getTime().toString());
                 Log.d("ExpandedAlarmViewHolder","setting new hours to: "+cal.get(Calendar.HOUR_OF_DAY));
