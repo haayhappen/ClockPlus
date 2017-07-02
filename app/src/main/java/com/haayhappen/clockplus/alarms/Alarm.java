@@ -28,7 +28,9 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
     private boolean enabled;
     private final boolean[] recurringDays = new boolean[NUM_DAYS];
     private boolean ignoreUpcomingRingTime;
+    private boolean rescheduled;
     // ====================================================
+
 
     public abstract int hour();
 
@@ -48,6 +50,7 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
 
     public abstract boolean vibrates();
 
+
     /**
      * Initializes a Builder to the same property values as this instance
      */
@@ -64,6 +67,7 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
         target.enabled = this.enabled;
         System.arraycopy(this.recurringDays, 0, target.recurringDays, 0, NUM_DAYS);
         target.ignoreUpcomingRingTime = this.ignoreUpcomingRingTime;
+        target.rescheduled = this.rescheduled;
     }
 
     public static Builder builder() {
@@ -79,6 +83,15 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
                 .realDuration(0)
                 .ringtone("")
                 .vibrates(false);
+
+    }
+
+    public boolean isRescheduled() {
+        return rescheduled;
+    }
+
+    public void setRescheduled(boolean rescheduled) {
+        this.rescheduled = rescheduled;
     }
 
     public void snooze(int minutes) {
@@ -263,6 +276,7 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
         dest.writeLong(getId());
         dest.writeLong(snoozingUntilMillis);
         dest.writeInt(enabled ? 1 : 0);
+        dest.writeInt(rescheduled ? 1 : 0); //NEW added 02.07.17 21:44
         dest.writeBooleanArray(recurringDays);
         dest.writeInt(ignoreUpcomingRingTime ? 1 : 0);
     }
@@ -282,6 +296,7 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
         alarm.setId(in.readLong());
         alarm.snoozingUntilMillis = in.readLong();
         alarm.enabled = in.readInt() != 0;
+        alarm.rescheduled = in.readInt() != 0;
         in.readBooleanArray(alarm.recurringDays);
         alarm.ignoreUpcomingRingTime = in.readInt() != 0;
         return alarm;
@@ -321,6 +336,8 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
         public abstract Builder ringtone(String ringtone);
 
         public abstract Builder vibrates(boolean vibrates);
+
+        //public abstract Builder reschedules(boolean reschedules);
 
         /* package */
         abstract Alarm autoBuild();

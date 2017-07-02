@@ -29,6 +29,7 @@ public class ClockAppDatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = "ClockAppDatabaseHelper";
     private static final String DB_NAME = "clock_app.db";
     private static final int VERSION_1 = 1;
+    private static final int VERSION_2 = 2;
 
     private static ClockAppDatabaseHelper sDatabaseHelper;
 
@@ -42,7 +43,7 @@ public class ClockAppDatabaseHelper extends SQLiteOpenHelper {
      * @param context the Context with which the application context will be retrieved
      */
     private ClockAppDatabaseHelper(Context context) {
-        super(context.getApplicationContext(), DB_NAME, null, VERSION_1);
+        super(context.getApplicationContext(), DB_NAME, null, VERSION_2);
     }
 
     @Override

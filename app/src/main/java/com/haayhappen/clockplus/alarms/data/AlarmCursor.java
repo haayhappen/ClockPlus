@@ -70,6 +70,7 @@ public class AlarmCursor extends BaseItemCursor<Alarm> {
                 .build();
         alarm.setId(getLong(getColumnIndexOrThrow(AlarmsTable.COLUMN_ID)));
         alarm.setEnabled(isTrue(AlarmsTable.COLUMN_ENABLED));
+        alarm.setRescheduled(isTrue(AlarmsTable.COLUMN_RESCHEDULED));
         alarm.setSnoozing(getLong(getColumnIndexOrThrow(AlarmsTable.COLUMN_SNOOZING_UNTIL_MILLIS)));
         alarm.setRecurring(SUNDAY, isTrue(AlarmsTable.COLUMN_SUNDAY));
         alarm.setRecurring(MONDAY, isTrue(AlarmsTable.COLUMN_MONDAY));

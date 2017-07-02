@@ -126,12 +126,7 @@ public class DistanceHandler extends AsyncTask<String, Void, Long> {
             //Get delay if one exists:
             if (durationInTrafficLong > durationLong){
                 try{
-                    Long del;
-                    del = (durationInTrafficLong-durationLong);
-                    //del = del/60;
-                    //delay in seconds
-                    //TODO Philipp : subtract delay time from alarm ringtime, so alarm rings earlier -how the fuck
-                    delay = del;
+                    delay = (durationInTrafficLong-durationLong);
                 }
                 catch (NumberFormatException nfe){
                     nfe.printStackTrace();

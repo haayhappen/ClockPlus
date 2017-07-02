@@ -82,10 +82,10 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         //TODO activate when published
-        //if (prefs.getBoolean("firstrun", true)) {
-            //startActivity(new Intent(this, IntroActivity.class));
-          //  prefs.edit().putBoolean("firstrun", false).commit();
-        //}
+//        if (prefs.getBoolean("firstrun", true)) {
+//            startActivity(new Intent(this, IntroActivity.class));
+//            prefs.edit().putBoolean("firstrun", false).commit();
+//        }
         super.onResume();
     }
 

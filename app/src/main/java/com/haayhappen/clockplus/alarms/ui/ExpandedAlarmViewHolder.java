@@ -326,29 +326,46 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
                 //TODO remove all debug logs for production
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(d);
-                Log.d("ExpandedAlarmViewHolder","calendar time before new set: "+cal.getTime().toString());
-                Log.d("ExpandedAlarmViewHolder","hours to be subtracted: "+delayHours);
-                Log.d("ExpandedAlarmViewHolder","minutes to be subtracted: "+delayMinutes);
+                Log.d(TAG, "calendar time before new set: " + cal.getTime().toString());
+                Log.d(TAG, "hours to be subtracted: " + delayHours);
+                Log.d(TAG, "minutes to be subtracted: " + delayMinutes);
 
-                if (delayHours == 0){
+                if (delayHours == 0) {
                     cal.add(Calendar.MINUTE, -Math.abs(delayMinutes));
-                }else{
-                    cal.add(Calendar.HOUR_OF_DAY,-Math.abs(delayHours));
-                    cal.add(Calendar.MINUTE,-Math.abs(delayMinutes));
+                } else {
+                    cal.add(Calendar.HOUR_OF_DAY, -Math.abs(delayHours));
+                    cal.add(Calendar.MINUTE, -Math.abs(delayMinutes));
                 }
 
-                Log.d("ExpandedAlarmViewHolder","calendar time after set: "+cal.getTime().toString());
-                Log.d("ExpandedAlarmViewHolder","setting new hours to: "+cal.get(Calendar.HOUR_OF_DAY));
-                Log.d("ExpandedAlarmViewHolder","setting new minutes to: "+cal.get(Calendar.MINUTE));
+                Log.d(TAG, "calendar time after set: " + cal.getTime().toString());
+                Log.d(TAG, "setting new hours to: " + cal.get(Calendar.HOUR_OF_DAY));
+                Log.d(TAG, "setting new minutes to: " + cal.get(Calendar.MINUTE));
 
-                Alarm newAlarm = oldAlarm.toBuilder()
-                        .minutes(cal.get(Calendar.MINUTE))
-                        .hour(cal.get(Calendar.HOUR_OF_DAY))
-                        .build();
-                oldAlarm.copyMutableFieldsTo(newAlarm);
-                persistUpdatedAlarm(newAlarm, false);
+                //TODO Update Alarm depending what is set in the preferences (example: 1 hour)
+//                Alarm newAlarm = oldAlarm.toBuilder()
+//                        .minutes(cal.get(Calendar.MINUTE))
+//                        .hour(cal.get(Calendar.HOUR_OF_DAY))
+//                        .build();
+//                oldAlarm.copyMutableFieldsTo(newAlarm);
+//                persistUpdatedAlarm(newAlarm, false);
                 //#############################
-                duration.setText(String.valueOf(delayMinutes) + "delay");
+                String delay = "Expected delay: ";
+
+                if (delayHours > 0) {
+                    if (delayHours == 1) {
+                        delay += delayHours + " Hour and ";
+                    } else {
+                        delay += delayHours + " Hours and ";
+                    }
+                }
+
+                if (delayMinutes == 1) {
+                    delay += delayMinutes + " Minute";
+                } else {
+                    delay += delayMinutes + " Minutes";
+                }
+
+                duration.setText(delay);
             }
         });
 

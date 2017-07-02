@@ -31,8 +31,16 @@ import com.haayhappen.clockplus.MainActivity;
 import com.haayhappen.clockplus.R;
 import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.alarms.misc.AlarmController;
+import com.haayhappen.clockplus.location.DistanceHandler;
+import com.haayhappen.clockplus.location.Location;
 import com.haayhappen.clockplus.util.ContentIntentUtils;
 import com.haayhappen.clockplus.util.ParcelableUtil;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import static android.app.PendingIntent.FLAG_ONE_SHOT;
 import static com.haayhappen.clockplus.R.string.alarm;
@@ -49,6 +57,8 @@ public class UpcomingAlarmReceiver extends BroadcastReceiver {
     public static final String EXTRA_ALARM = "com.philliphsu.clock2.extra.ALARM";
     //public static final String EXTRA_ALARM = "com.haayhappen.clockplus.extra.ALARM";
 
+    private AlarmController mAlarmController;
+
     @Override
     public void onReceive(final Context context, final Intent intent) {
 
@@ -57,11 +67,14 @@ public class UpcomingAlarmReceiver extends BroadcastReceiver {
         //get the byte array out of the intents' extras
         byte[] byteArray = extras.getByteArray(EXTRA_ALARM);
         //unmarshall the array to our parcel(alarm)
-        final Alarm alarm = ParcelableUtil.unmarshall(byteArray,Alarm.CREATOR);
+        final Alarm alarm = ParcelableUtil.unmarshall(byteArray, Alarm.CREATOR);
 
         if (alarm == null) {
             throw new IllegalStateException("No alarm received");
         }
+        Log.d(TAG, "Received Alarm which rings in: " + alarm.ringsIn());
+        Log.d(TAG, "Received Alarm which rings at: " + alarm.ringsAt());
+        Log.d(TAG, "Does the alarm ring within 1 hour?: " + alarm.ringsWithinHours(1));
 
         final long id = alarm.getId();
         final NotificationManager nm = (NotificationManager)
@@ -83,7 +96,7 @@ public class UpcomingAlarmReceiver extends BroadcastReceiver {
                 if (ACTION_SHOW_SNOOZING.equals(intent.getAction())) {
                     if (!alarm.isSnoozed())
                         throw new IllegalStateException("Can't show snoozing notif. if alarm not snoozed!");
-                    title="Fix me";
+                    title = "Fix me";
                     //TODO fix this
                     //title = alarm.label().isEmpty() ? context.getString(alarm) : alarm.label();
                     text = context.getString(R.string.title_snoozing_until,
@@ -111,5 +124,53 @@ public class UpcomingAlarmReceiver extends BroadcastReceiver {
                 nm.notify(TAG, (int) id, note);
             }
         }
+        //Check that alarm rings within 1 hours
+        if (alarm.ringsWithinHours(1)) {
+            mAlarmController = new AlarmController(context, null);
+            DistanceHandler asyncTask = new DistanceHandler(alarm, new DistanceHandler.AsyncResponse() {
+                @Override
+                public void processFinish(long delaySecs) {
+                    int minutesUntilRing = (int) TimeUnit.MILLISECONDS.toMinutes(alarm.ringsIn());
+                    int testseconds = 240;
+                    int delayMinutes = (int) TimeUnit.SECONDS.toMinutes(testseconds);
+
+                    if (delayMinutes < minutesUntilRing) {
+                        if (!alarm.isRescheduled()) {
+                            Alarm newAlarm = alarm.toBuilder()
+                                    .minutes(minutesUntilRing - delayMinutes)
+                                    .build();
+                            alarm.setRescheduled(true);
+                            alarm.copyMutableFieldsTo(newAlarm);
+                            persistUpdatedAlarm(newAlarm, false);
+                            Log.d(TAG, "Rescheduled alarm, so user will be waked up earlier.");
+                        }
+
+
+                        NotificationCompat.Builder builder =
+                                new NotificationCompat.Builder(context)
+                                        .setSmallIcon(R.drawable.ic_alarm_24dp)
+                                        .setContentTitle("TrafficAlarm")
+                                        .setContentText("Alarm has been rescheduled: " + (minutesUntilRing - delayMinutes) + " minutes");
+
+                        // Add as notification
+                        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                        manager.notify(0, builder.build());
+                    }
+
+                }
+            });
+
+            try {
+                asyncTask.execute();
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        }
+
+    }
+
+    final void persistUpdatedAlarm(Alarm newAlarm, boolean showSnackbar) {
+        mAlarmController.scheduleAlarm(newAlarm, showSnackbar);
+        mAlarmController.save(newAlarm);
     }
 }

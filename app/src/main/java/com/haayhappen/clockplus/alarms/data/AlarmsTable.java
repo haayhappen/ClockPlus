@@ -45,6 +45,7 @@ public final class AlarmsTable {
     public static final String COLUMN_RINGTONE = "ringtone";
     public static final String COLUMN_VIBRATES = "vibrates";
     public static final String COLUMN_ENABLED = "enabled";
+    public static final String COLUMN_RESCHEDULED = "rescheduled";
 
 
     // TODO: Delete this column, becuase new sort order does not consider it
@@ -114,6 +115,7 @@ public final class AlarmsTable {
                 + COLUMN_RINGTONE + " TEXT NOT NULL, "
                 + COLUMN_VIBRATES + " INTEGER NOT NULL, "
                 + COLUMN_ENABLED + " INTEGER NOT NULL, "
+                + COLUMN_RESCHEDULED + " INTEGER NOT NULL, "
                 + COLUMN_RING_TIME_MILLIS + " INTEGER NOT NULL, "
                 + COLUMN_SNOOZING_UNTIL_MILLIS + " INTEGER, "
                 + COLUMN_SUNDAY + " INTEGER NOT NULL DEFAULT 0, "
