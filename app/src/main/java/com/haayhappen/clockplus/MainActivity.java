@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity {
         getSupportActionBar().setTitle(getString(R.string.app_name));
 
         //TODO delete when published
-        startActivity(new Intent(this, IntroActivity.class));
+        //startActivity(new Intent(this, IntroActivity.class));
         //Intro
         prefs = getSharedPreferences("com.haayhappen.clockplus", MODE_PRIVATE);
     }

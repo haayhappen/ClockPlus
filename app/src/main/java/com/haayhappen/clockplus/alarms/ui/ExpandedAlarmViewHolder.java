@@ -24,7 +24,10 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Vibrator;
 import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +53,10 @@ import com.haayhappen.clockplus.location.Location;
 import com.haayhappen.clockplus.timepickers.Utils;
 import com.haayhappen.clockplus.util.FragmentTagUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
@@ -286,7 +293,7 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
         duration.setText("");
         final Alarm oldAlarm = getAlarm();
         Alarm newAlarm = oldAlarm.toBuilder()
-                .destination(new Location("",0,0))
+                .destination(new Location("", 0, 0))
                 .build();
         oldAlarm.copyMutableFieldsTo(newAlarm);
         persistUpdatedAlarm(newAlarm, false);
@@ -299,21 +306,50 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
 
     private void setDuration() {
         Log.d(TAG, "set duration");
-        DistanceHandler asyncTask = new DistanceHandler(getAlarm(),new DistanceHandler.AsyncResponse() {
+        DistanceHandler asyncTask = new DistanceHandler(getAlarm(), new DistanceHandler.AsyncResponse() {
             @Override
             public void processFinish(long delaySecs) {
-                //#################new############
-                int min = (int)TimeUnit.SECONDS.toMinutes(delaySecs);
+                int testseconds = 4000;
                 final Alarm oldAlarm = getAlarm();
-                int oldmin = oldAlarm.minutes();
-                int newmin = oldmin - min;
+                int delayMinutes = (int) TimeUnit.SECONDS.toMinutes(testseconds);
+                int delayHours = delayMinutes / 60;
+                delayMinutes = delayMinutes % 60;
+
+
+                Date d = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                try {
+                    d = sdf.parse(oldAlarm.hour() + ":" + oldAlarm.minutes());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                //TODO remove all debug logs for production
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(d);
+                Log.d("ExpandedAlarmViewHolder","calendar time before new set: "+cal.getTime().toString());
+                Log.d("ExpandedAlarmViewHolder","hours to be subtracted: "+delayHours);
+                Log.d("ExpandedAlarmViewHolder","minutes to be subtracted: "+delayMinutes);
+
+                if (delayHours == 0){
+                    cal.add(Calendar.MINUTE, -Math.abs(delayMinutes));
+                }else{
+                    cal.add(Calendar.HOUR_OF_DAY,-Math.abs(delayHours));
+                    cal.add(Calendar.MINUTE,-Math.abs(delayMinutes));
+                }
+
+                Log.d("ExpandedAlarmViewHolder","calendar time after set: "+cal.getTime().toString());
+                Log.d("ExpandedAlarmViewHolder","setting new hours to: "+cal.get(Calendar.HOUR_OF_DAY));
+                Log.d("ExpandedAlarmViewHolder","setting new minutes to: "+cal.get(Calendar.MINUTE));
+
                 Alarm newAlarm = oldAlarm.toBuilder()
-                        .minutes(newmin)
+                        .minutes(cal.get(Calendar.MINUTE))
+                        .hour(cal.get(Calendar.HOUR_OF_DAY))
                         .build();
                 oldAlarm.copyMutableFieldsTo(newAlarm);
                 persistUpdatedAlarm(newAlarm, false);
                 //#############################
-                duration.setText(String.valueOf(min)+"delay");
+                duration.setText(String.valueOf(delayMinutes) + "delay");
             }
         });
 
