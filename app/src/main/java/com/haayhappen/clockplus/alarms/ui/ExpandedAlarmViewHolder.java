@@ -337,7 +337,6 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
                     cal.add(Calendar.MINUTE,-Math.abs(delayMinutes));
                 }
 
-
                 Log.d("ExpandedAlarmViewHolder","calendar time after set: "+cal.getTime().toString());
                 Log.d("ExpandedAlarmViewHolder","setting new hours to: "+cal.get(Calendar.HOUR_OF_DAY));
                 Log.d("ExpandedAlarmViewHolder","setting new minutes to: "+cal.get(Calendar.MINUTE));
