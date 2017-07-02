@@ -20,6 +20,7 @@ import android.database.Cursor;
 
 import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.data.BaseItemCursor;
+import com.haayhappen.clockplus.location.Location;
 
 import static com.haayhappen.clockplus.alarms.misc.DaysOfWeek.FRIDAY;
 import static com.haayhappen.clockplus.alarms.misc.DaysOfWeek.MONDAY;
@@ -58,8 +59,14 @@ public class AlarmCursor extends BaseItemCursor<Alarm> {
                 .vibrates(isTrue(AlarmsTable.COLUMN_VIBRATES))
                 .ringtone(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_RINGTONE)))
                 .label(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_LABEL)))
-                .origin(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_ORIGIN)))
-                .destination(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_DESTINATION)))
+                .origin(new Location(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_ORIGIN_ADRESS)),
+                        getDouble(getColumnIndexOrThrow(AlarmsTable.COLUMN_ORIGIN_LATITUDE)),
+                        getDouble(getColumnIndexOrThrow(AlarmsTable.COLUMN_ORIGIN_LONGITUDE))))
+                .destination(new Location(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_DESTINATION_ADRESS)),
+                        getDouble(getColumnIndexOrThrow(AlarmsTable.COLUMN_DESTINATION_LATITUDE)),
+                        getDouble(getColumnIndexOrThrow(AlarmsTable.COLUMN_DESTINATION_LONGITUDE))))
+                .duration(getLong(getColumnIndexOrThrow(AlarmsTable.COLUMN_DURATION)))
+                .realDuration(getLong(getColumnIndexOrThrow(AlarmsTable.COLUMN_REAL_DURATION)))
                 .build();
         alarm.setId(getLong(getColumnIndexOrThrow(AlarmsTable.COLUMN_ID)));
         alarm.setEnabled(isTrue(AlarmsTable.COLUMN_ENABLED));

@@ -36,6 +36,7 @@ import com.haayhappen.clockplus.ringtone.playback.AlarmRingtoneService;
 import com.haayhappen.clockplus.util.ContentIntentUtils;
 import com.haayhappen.clockplus.util.DelayedSnackbarHandler;
 import com.haayhappen.clockplus.util.DurationUtils;
+import com.haayhappen.clockplus.util.ParcelableUtil;
 
 import static android.app.PendingIntent.FLAG_CANCEL_CURRENT;
 import static android.app.PendingIntent.FLAG_NO_CREATE;
@@ -211,9 +212,13 @@ public final class AlarmController {
     }
 
     public void removeUpcomingAlarmNotification(Alarm a) {
+        //TODO remove id doesnt work
+
+        Alarm malarm = a;
+        byte[] bytes = ParcelableUtil.marshall(malarm);
         Intent intent = new Intent(mAppContext, UpcomingAlarmReceiver.class)
                 .setAction(UpcomingAlarmReceiver.ACTION_CANCEL_NOTIFICATION)
-                .putExtra(UpcomingAlarmReceiver.EXTRA_ALARM, a);
+                .putExtra(UpcomingAlarmReceiver.EXTRA_ALARM, bytes);
         mAppContext.sendBroadcast(intent);
     }
 
@@ -228,8 +233,13 @@ public final class AlarmController {
     }
 
     private PendingIntent alarmIntent(Alarm alarm, boolean retrievePrevious) {
+
+        //marshall alarm:
+        Alarm malarm = alarm;
+        byte[] bytes = ParcelableUtil.marshall(malarm);
+
         Intent intent = new Intent(mAppContext, AlarmActivity.class)
-                .putExtra(AlarmActivity.EXTRA_RINGING_OBJECT, alarm);
+                .putExtra(AlarmActivity.EXTRA_RINGING_OBJECT, bytes);
         int flag = retrievePrevious ? FLAG_NO_CREATE : FLAG_CANCEL_CURRENT;
         // Even when we try to retrieve a previous instance that actually did exist,
         // null can be returned for some reason. Thus, we don't checkNotNull().
@@ -237,14 +247,22 @@ public final class AlarmController {
     }
 
     private PendingIntent notifyUpcomingAlarmIntent(Alarm alarm, boolean retrievePrevious) {
+
+        //Marshall Alarm to be able to deliver it to upcomingAlarmReceiver
+        Alarm malarm = alarm;
+        byte[] bytes = ParcelableUtil.marshall(malarm);
+        //alarm saved as bytes now
+
+        //Put the alarmbytes into the intent
         Intent intent = new Intent(mAppContext, UpcomingAlarmReceiver.class)
-                .putExtra(UpcomingAlarmReceiver.EXTRA_ALARM, alarm);
+                .putExtra(UpcomingAlarmReceiver.EXTRA_ALARM, bytes);
         if (alarm.isSnoozed()) {
             intent.setAction(UpcomingAlarmReceiver.ACTION_SHOW_SNOOZING);
         }
         int flag = retrievePrevious ? FLAG_NO_CREATE : FLAG_CANCEL_CURRENT;
         // Even when we try to retrieve a previous instance that actually did exist,
         // null can be returned for some reason. Thus, we don't checkNotNull().
+        Log.d(TAG,"Alarm:"+ alarm +" ### "+ UpcomingAlarmReceiver.EXTRA_ALARM);
         return PendingIntent.getBroadcast(mAppContext, alarm.getIntId(), intent, flag);
     }
 

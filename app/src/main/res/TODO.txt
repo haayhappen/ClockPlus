@@ -1,0 +1,14 @@
+####################################################################################################
+
+TODO: Set the departure time to the alarms wake time or a bit later
+
+TODO: Set the Alarm if distance helper calculates a delay
+
+DONE: Implement intro screen
+
+TODO: Implement new alarm slide to close or snooze
+
+TODO: Implement weather API
+
+
+####################################################################################################

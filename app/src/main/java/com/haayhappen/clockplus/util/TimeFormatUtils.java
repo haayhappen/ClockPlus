@@ -30,10 +30,23 @@ public final class TimeFormatUtils {
 
     private TimeFormatUtils() {}
 
+    /**
+     *
+     * @param context
+     * @param millis
+     * @return String time
+     */
     public static String formatTime(Context context, long millis) {
         return getTimeFormat(context).format(new Date(millis));
     }
 
+    /**
+     *
+     * @param context
+     * @param hourOfDay
+     * @param minute
+     * @return String time
+     */
     public static String formatTime(Context context, int hourOfDay, int minute) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, hourOfDay);

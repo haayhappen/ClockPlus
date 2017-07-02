@@ -6,6 +6,7 @@ import android.os.Parcelable;
 
 import com.google.auto.value.AutoValue;
 import com.haayhappen.clockplus.data.ObjectWithId;
+import com.haayhappen.clockplus.location.Location;
 
 import org.json.JSONObject;
 
@@ -30,13 +31,26 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
     // ====================================================
 
     public abstract int hour();
+
     public abstract int minutes();
+
     public abstract String label();
-    public abstract String origin();
-    public abstract String destination();
+
+    public abstract Location origin();
+
+    public abstract Location destination();
+
+    public abstract long duration();
+
+    public abstract long realDuration();
+
     public abstract String ringtone();
+
     public abstract boolean vibrates();
-    /** Initializes a Builder to the same property values as this instance */
+
+    /**
+     * Initializes a Builder to the same property values as this instance
+     */
     public abstract Builder toBuilder();
 
     @Deprecated
@@ -59,15 +73,17 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
                 .hour(0)
                 .minutes(0)
                 .label("")
-                .origin("")
-                .destination("")
+                .origin(new Location("", 0, 0))
+                .destination(new Location("", 0, 0))
+                .duration(0)
+                .realDuration(0)
                 .ringtone("")
                 .vibrates(false);
     }
 
     public void snooze(int minutes) {
         if (minutes <= 0 || minutes > MAX_MINUTES_CAN_SNOOZE)
-            throw new IllegalArgumentException("Cannot snooze for "+minutes+" minutes");
+            throw new IllegalArgumentException("Cannot snooze for " + minutes + " minutes");
         snoozingUntilMillis = System.currentTimeMillis() + minutes * 60000;
     }
 
@@ -83,8 +99,10 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
         return true;
     }
 
-    /** <b>ONLY CALL THIS WHEN CREATING AN ALARM INSTANCE FROM A CURSOR</b> */
-    // TODO: To be even more safe, create a ctor that takes a Cursor and
+    /**
+     * <b>ONLY CALL THIS WHEN CREATING AN ALARM INSTANCE FROM A CURSOR</b>
+     */
+    // TODO: To be even more safe, create actor that takes a Cursor and
     // initialize the instance here instead of in AlarmDatabaseHelper.
     public void setSnoozing(long snoozingUntilMillis) {
         this.snoozingUntilMillis = snoozingUntilMillis;
@@ -206,6 +224,7 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
      * Returns whether this Alarm is upcoming in the next {@code hours} hours.
      * To return true, this Alarm must not have its {@link #ignoreUpcomingRingTime}
      * member field set to true.
+     *
      * @see #ignoreUpcomingRingTime(boolean)
      */
     public boolean ringsWithinHours(int hours) {
@@ -227,8 +246,14 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
         dest.writeInt(hour());
         dest.writeInt(minutes());
         dest.writeString(label());
-        dest.writeString(origin());
-        dest.writeString(destination());
+        dest.writeString(origin().getAdress());
+        dest.writeDouble(origin().getLatitude());
+        dest.writeDouble(origin().getLongitude());
+        dest.writeString(destination().getAdress());
+        dest.writeDouble(destination().getLatitude());
+        dest.writeDouble(destination().getLongitude());
+        dest.writeLong(duration());
+        dest.writeLong(realDuration());
         dest.writeString(ringtone());
         dest.writeInt(vibrates() ? 1 : 0);
         // Mutable fields must be written after the immutable fields,
@@ -247,8 +272,10 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
                 .hour(in.readInt())
                 .minutes(in.readInt())
                 .label(in.readString())
-                .origin(in.readString())
-                .destination(in.readString())
+                .origin(new Location(in.readString(), in.readDouble(), in.readDouble()))
+                .destination(new Location(in.readString(), in.readDouble(), in.readDouble()))
+                .duration(in.readLong())
+                .realDuration(in.readLong())
                 .ringtone(in.readString())
                 .vibrates(in.readInt() != 0)
                 .build();
@@ -278,13 +305,25 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
     @AutoValue.Builder
     public abstract static class Builder {
         public abstract Builder hour(int hour);
+
         public abstract Builder minutes(int minutes);
+
         public abstract Builder label(String label);
-        public abstract Builder origin(String origin);
-        public abstract Builder destination(String destination);
+
+        public abstract Builder origin(Location origin);
+
+        public abstract Builder destination(Location destination);
+
+        public abstract Builder duration(long duration);
+
+        public abstract Builder realDuration(long duration);
+
         public abstract Builder ringtone(String ringtone);
+
         public abstract Builder vibrates(boolean vibrates);
-        /* package */ abstract Alarm autoBuild();
+
+        /* package */
+        abstract Alarm autoBuild();
 
         public Alarm build() {
             Alarm alarm = autoBuild();

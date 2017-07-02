@@ -76,7 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             ActionBar ab = getSupportActionBar();
 
             if (ab != null) {
-                ab.setTitle(getString(R.string.app_name));
+               // ab.setTitle(getString(R.string.app_name));
                 ab.setDisplayHomeAsUpEnabled(isDisplayHomeUpEnabled());
                 ab.setDisplayShowTitleEnabled(isDisplayShowTitleEnabled());
             }

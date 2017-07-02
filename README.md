@@ -1,8 +1,10 @@
-# ClockPlus
-Modern, MaterialDesign-styled, Android Alarm App.
-It uses the google-distance-matrix API to calculate if there will be a delay in your way to work/whatever.
-If there is a traffic jam on your way, it will re-set your alarm so you won't be late for work/whatever.
 
+# TrafficAlarm
 
+TrafficAlarm is an alarm clock app for android.
 
+It includes a feature to add a route to an alarm.
+Depending on the traffic on the route and the wakeup-time, a perfect alarm time is caculated.
+
+Never be late again!
 

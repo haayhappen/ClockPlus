@@ -17,18 +17,19 @@
 package com.haayhappen.clockplus;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.haayhappen.clockplus.about.AboutActivity;
 import com.haayhappen.clockplus.alarms.ui.AlarmsFragment;
+import com.haayhappen.clockplus.intro.IntroActivity;
 import com.haayhappen.clockplus.settings.SettingsActivity;
 
 import butterknife.Bind;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseActivity {
     FloatingActionButton mFab;
     private AlarmsFragment alarmsFragment;
     private Drawable mAddItemDrawable;
+    private SharedPreferences prefs = null;
 
     public void setLocationPicker(LocationPicker locationPicker) {
         this.locationPicker = locationPicker;
@@ -70,8 +72,22 @@ public class MainActivity extends BaseActivity {
 
         mAddItemDrawable = ContextCompat.getDrawable(this, R.drawable.ic_add_24dp);
         getSupportActionBar().setTitle(getString(R.string.app_name));
+
+        //TODO delete when published
+        //startActivity(new Intent(this, IntroActivity.class));
+        //Intro
+        prefs = getSharedPreferences("com.haayhappen.clockplus", MODE_PRIVATE);
     }
 
+    @Override
+    protected void onResume() {
+        //TODO activate when published
+        //if (prefs.getBoolean("firstrun", true)) {
+            //startActivity(new Intent(this, IntroActivity.class));
+          //  prefs.edit().putBoolean("firstrun", false).commit();
+        //}
+        super.onResume();
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -82,7 +98,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_PICK_LOCATION) {
-            locationPicker.onLocationPicked(PlacePicker.getPlace(this, data));
+            if (data != null) {
+                locationPicker.onLocationPicked(PlacePicker.getPlace(this, data));
+            }
         }
 
 
@@ -150,6 +168,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected boolean isDisplayShowTitleEnabled() {
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
@@ -157,9 +180,14 @@ public class MainActivity extends BaseActivity {
             startActivityForResult(new Intent(this, SettingsActivity.class), REQUEST_THEME_CHANGE);
             return true;
         }
+        if (id == R.id.action_about) {
+            startActivity(new Intent(this, AboutActivity.class));
+        }
+        if (id == R.id.action_intro) {
+            startActivity(new Intent(this, IntroActivity.class));
+        }
 
         return super.onOptionsItemSelected(item);
     }
-
 
 }

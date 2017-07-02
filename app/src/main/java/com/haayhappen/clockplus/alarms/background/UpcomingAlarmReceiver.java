@@ -22,15 +22,20 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcel;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.haayhappen.clockplus.MainActivity;
 import com.haayhappen.clockplus.R;
 import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.alarms.misc.AlarmController;
 import com.haayhappen.clockplus.util.ContentIntentUtils;
+import com.haayhappen.clockplus.util.ParcelableUtil;
 
 import static android.app.PendingIntent.FLAG_ONE_SHOT;
+import static com.haayhappen.clockplus.R.string.alarm;
 import static com.haayhappen.clockplus.util.TimeFormatUtils.formatTime;
 
 // TODO: Consider registering this locally instead of in the manifest.
@@ -42,10 +47,18 @@ public class UpcomingAlarmReceiver extends BroadcastReceiver {
     public static final String ACTION_CANCEL_NOTIFICATION = "com.philliphsu.clock2.action.CANCEL_NOTIFICATION";
     public static final String ACTION_SHOW_SNOOZING = "com.philliphsu.clock2.action.SHOW_SNOOZING";
     public static final String EXTRA_ALARM = "com.philliphsu.clock2.extra.ALARM";
+    //public static final String EXTRA_ALARM = "com.haayhappen.clockplus.extra.ALARM";
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
-        final Alarm alarm = intent.getParcelableExtra(EXTRA_ALARM);
+
+        //get extras bundle from pending intent
+        Bundle extras = intent.getExtras();
+        //get the byte array out of the intents' extras
+        byte[] byteArray = extras.getByteArray(EXTRA_ALARM);
+        //unmarshall the array to our parcel(alarm)
+        final Alarm alarm = ParcelableUtil.unmarshall(byteArray,Alarm.CREATOR);
+
         if (alarm == null) {
             throw new IllegalStateException("No alarm received");
         }
@@ -70,7 +83,9 @@ public class UpcomingAlarmReceiver extends BroadcastReceiver {
                 if (ACTION_SHOW_SNOOZING.equals(intent.getAction())) {
                     if (!alarm.isSnoozed())
                         throw new IllegalStateException("Can't show snoozing notif. if alarm not snoozed!");
-                    title = alarm.label().isEmpty() ? context.getString(R.string.alarm) : alarm.label();
+                    title="Fix me";
+                    //TODO fix this
+                    //title = alarm.label().isEmpty() ? context.getString(alarm) : alarm.label();
                     text = context.getString(R.string.title_snoozing_until,
                             formatTime(context, alarm.snoozingUntil()));
                 } else {

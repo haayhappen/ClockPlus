@@ -24,11 +24,15 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Vibrator;
 import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -44,9 +48,16 @@ import com.haayhappen.clockplus.alarms.misc.DaysOfWeek;
 import com.haayhappen.clockplus.dialogs.RingtonePickerDialog;
 import com.haayhappen.clockplus.dialogs.RingtonePickerDialogController;
 import com.haayhappen.clockplus.list.OnListItemInteractionListener;
+import com.haayhappen.clockplus.location.DistanceHandler;
+import com.haayhappen.clockplus.location.Location;
 import com.haayhappen.clockplus.timepickers.Utils;
 import com.haayhappen.clockplus.util.FragmentTagUtils;
-import com.haayhappen.clockplus.location.DistanceHandler;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -56,16 +67,16 @@ import butterknife.OnClick;
 /**
  * Created by Fynn Merlevede on 7/31/2016.
  */
-public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements DistanceHandler.AsyncResponse {
+public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
     private static final String TAG = "ExpandedAlarmViewHolder";
     private final ColorStateList mDayToggleColors;
     private final ColorStateList mVibrateColors;
 
     private final RingtonePickerDialogController mRingtonePickerController;
     @Bind(R.id.ok)
-    Button mOk;
+    ImageButton mOk;
     @Bind(R.id.delete)
-    Button mDelete;
+    ImageButton mDelete;
     @Bind(R.id.ringtone)
     Button mRingtone;
     @Bind(R.id.vibrate)
@@ -78,6 +89,10 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
     TextView toText;
     @Bind(R.id.duration)
     TextView duration;
+    @Bind(R.id.b_clear_from)
+    ImageButton clearFromButton;
+    @Bind(R.id.b_clear_to)
+    ImageButton clearToButton;
 
     public ExpandedAlarmViewHolder(Activity activity, ViewGroup parent, final OnListItemInteractionListener<Alarm> listener,
                                    AlarmController controller) {
@@ -154,6 +169,8 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
         bindDays(alarm);
         bindRingtone();
         bindFrom(alarm);
+        bindClearFrom(alarm);
+        bindClearTo(alarm);
         bindTo(alarm);
         bindVibrate(alarm.vibrates());
     }
@@ -213,9 +230,10 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
             @Override
             public void onLocationPicked(Place place) {
                 fromText.setText(place.getAddress());
+                setDuration();
                 final Alarm oldAlarm = getAlarm();
                 Alarm newAlarm = oldAlarm.toBuilder()
-                        .origin(String.valueOf(place.getAddress()))
+                        .origin(new Location(String.valueOf(place.getAddress()), place.getLatLng().latitude, place.getLatLng().longitude))
                         .build();
                 oldAlarm.copyMutableFieldsTo(newAlarm);
                 persistUpdatedAlarm(newAlarm, false);
@@ -229,6 +247,19 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
         } catch (GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
         }
+    }
+
+    @OnClick(R.id.b_clear_from)
+    void onClearFrom() {
+        fromText.setText(getContext().getString(R.string.my_location));
+        duration.setText("");
+        final Alarm oldAlarm = getAlarm();
+        Alarm newAlarm = oldAlarm.toBuilder()
+                .origin(new Location("", 0, 0))
+                .build();
+        oldAlarm.copyMutableFieldsTo(newAlarm);
+        persistUpdatedAlarm(newAlarm, false);
+        bindClearFrom(newAlarm);
     }
 
     @OnClick(R.id.to)
@@ -237,9 +268,10 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
             @Override
             public void onLocationPicked(Place place) {
                 toText.setText(place.getAddress());
+                setDuration();
                 final Alarm oldAlarm = getAlarm();
                 Alarm newAlarm = oldAlarm.toBuilder()
-                        .destination(String.valueOf(place.getAddress()))
+                        .destination(new Location(String.valueOf(place.getAddress()), place.getLatLng().latitude, place.getLatLng().longitude))
                         .build();
                 oldAlarm.copyMutableFieldsTo(newAlarm);
                 persistUpdatedAlarm(newAlarm, false);
@@ -255,20 +287,79 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
         }
     }
 
+    @OnClick(R.id.b_clear_to)
+    void onClearTo() {
+        toText.setText("");
+        duration.setText("");
+        final Alarm oldAlarm = getAlarm();
+        Alarm newAlarm = oldAlarm.toBuilder()
+                .destination(new Location("", 0, 0))
+                .build();
+        oldAlarm.copyMutableFieldsTo(newAlarm);
+        persistUpdatedAlarm(newAlarm, false);
+        bindClearTo(newAlarm);
+    }
+
     @OnClick(R.id.duration)
     void onDurationClicked() {
-
-        DistanceHandler asyncTask =new DistanceHandler();
-        try {
-            duration.setText(asyncTask.execute(fromText.getText().toString(),toText.getText().toString()).get());
-        }catch (Exception e){
-            e.getMessage();
-        }
     }
-    //this override the implemented method from AsyncResponse
-    @Override
-    public void processFinish(String output){
-        duration.setText(output);
+
+    private void setDuration() {
+        Log.d(TAG, "set duration");
+        DistanceHandler asyncTask = new DistanceHandler(getAlarm(), new DistanceHandler.AsyncResponse() {
+            @Override
+            public void processFinish(long delaySecs) {
+                int testseconds = 4000;
+                final Alarm oldAlarm = getAlarm();
+                int delayMinutes = (int) TimeUnit.SECONDS.toMinutes(testseconds);
+                int delayHours = delayMinutes / 60;
+                delayMinutes = delayMinutes % 60;
+
+
+                Date d = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                try {
+                    d = sdf.parse(oldAlarm.hour() + ":" + oldAlarm.minutes());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                //TODO remove all debug logs for production
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(d);
+                Log.d("ExpandedAlarmViewHolder","calendar time before new set: "+cal.getTime().toString());
+                Log.d("ExpandedAlarmViewHolder","hours to be subtracted: "+delayHours);
+                Log.d("ExpandedAlarmViewHolder","minutes to be subtracted: "+delayMinutes);
+
+                if (delayHours == 0){
+                    cal.add(Calendar.MINUTE, -Math.abs(delayMinutes));
+                }else{
+                    cal.add(Calendar.HOUR_OF_DAY,-Math.abs(delayHours));
+                    cal.add(Calendar.MINUTE,-Math.abs(delayMinutes));
+                }
+
+                Log.d("ExpandedAlarmViewHolder","calendar time after set: "+cal.getTime().toString());
+                Log.d("ExpandedAlarmViewHolder","setting new hours to: "+cal.get(Calendar.HOUR_OF_DAY));
+                Log.d("ExpandedAlarmViewHolder","setting new minutes to: "+cal.get(Calendar.MINUTE));
+
+                Alarm newAlarm = oldAlarm.toBuilder()
+                        .minutes(cal.get(Calendar.MINUTE))
+                        .hour(cal.get(Calendar.HOUR_OF_DAY))
+                        .build();
+                oldAlarm.copyMutableFieldsTo(newAlarm);
+                persistUpdatedAlarm(newAlarm, false);
+                //#############################
+                duration.setText(String.valueOf(delayMinutes) + "delay");
+            }
+        });
+
+        if (!fromText.getText().equals("") && !toText.getText().equals("")) {
+            try {
+                asyncTask.execute(fromText.getText().toString(), toText.getText().toString());
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        }
     }
 
     @OnClick({R.id.day0, R.id.day1, R.id.day2, R.id.day3, R.id.day4, R.id.day5, R.id.day6})
@@ -299,12 +390,20 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder implements Dist
     }
 
     private void bindFrom(Alarm alarm) {
-        Log.d(TAG,"bind from: "+alarm.origin());
-        fromText.setText(alarm.origin());
+        fromText.setText(alarm.origin().getAdress().equals("") ? "Mein Standort" : alarm.origin().getAdress());
+    }
+
+    private void bindClearFrom(Alarm alarm) {
+        clearFromButton.setEnabled(!alarm.origin().getAdress().equals(""));
     }
 
     private void bindTo(Alarm alarm) {
-        toText.setText(alarm.destination());
+        toText.setText(alarm.destination().getAdress());
+        setDuration();
+    }
+
+    private void bindClearTo(Alarm alarm) {
+        clearToButton.setEnabled(!alarm.destination().getAdress().equals(""));
     }
 
     private void bindRingtone() {

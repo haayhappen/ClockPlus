@@ -32,12 +32,16 @@ import android.widget.TextView;
 
 import com.haayhappen.clockplus.BaseActivity;
 import com.haayhappen.clockplus.R;
+import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.ringtone.playback.RingtoneService;
 import com.haayhappen.clockplus.util.LocalBroadcastHelper;
+import com.haayhappen.clockplus.util.ParcelableUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.haayhappen.clockplus.alarms.background.UpcomingAlarmReceiver.EXTRA_ALARM;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -103,7 +107,13 @@ public abstract class RingtoneActivity<T extends Parcelable> extends BaseActivit
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
-        if ((mRingingObject = getIntent().getParcelableExtra(EXTRA_RINGING_OBJECT)) == null)
+        Bundle extras = getIntent().getExtras();
+        byte[] byteArray = extras.getByteArray(EXTRA_RINGING_OBJECT);
+        final Alarm alarm = ParcelableUtil.unmarshall(byteArray,Alarm.CREATOR);
+        mRingingObject = (T)alarm;
+
+        //if ((mRingingObject = getIntent().getParcelableExtra(EXTRA_RINGING_OBJECT)) == null) old if statement
+        if (mRingingObject == null)
             throw new IllegalStateException("Cannot start RingtoneActivity without a ringing object");
         sIsAlive = true;
 

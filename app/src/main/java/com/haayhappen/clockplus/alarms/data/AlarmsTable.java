@@ -22,7 +22,8 @@ import android.database.sqlite.SQLiteDatabase;
  * Created by Fynn Merlevede on 7/30/2016.
  */
 public final class AlarmsTable {
-    private AlarmsTable() {}
+    private AlarmsTable() {
+    }
 
     // TODO: Consider defining index constants for each column,
     // and then removing all cursor getColumnIndex() calls.
@@ -33,8 +34,14 @@ public final class AlarmsTable {
     public static final String COLUMN_HOUR = "hour";
     public static final String COLUMN_MINUTES = "minutes";
     public static final String COLUMN_LABEL = "label";
-    public static final String COLUMN_ORIGIN= "origin";
-    public static final String COLUMN_DESTINATION= "destination";
+    public static final String COLUMN_ORIGIN_ADRESS = "origin_adress";
+    public static final String COLUMN_ORIGIN_LATITUDE = "origin_latitude";
+    public static final String COLUMN_ORIGIN_LONGITUDE = "origin_longitude";
+    public static final String COLUMN_DESTINATION_ADRESS = "destination_adress";
+    public static final String COLUMN_DESTINATION_LATITUDE = "destination_latitude";
+    public static final String COLUMN_DESTINATION_LONGITUDE = "destination_longitude";
+    public static final String COLUMN_DURATION="duration";
+    public static final String COLUMN_REAL_DURATION="real_duration";
     public static final String COLUMN_RINGTONE = "ringtone";
     public static final String COLUMN_VIBRATES = "vibrates";
     public static final String COLUMN_ENABLED = "enabled";
@@ -96,8 +103,14 @@ public final class AlarmsTable {
                 + COLUMN_HOUR + " INTEGER NOT NULL, "
                 + COLUMN_MINUTES + " INTEGER NOT NULL, "
                 + COLUMN_LABEL + " TEXT, "
-                + COLUMN_ORIGIN + " TEXT, "
-                + COLUMN_DESTINATION + " TEXT, "
+                + COLUMN_ORIGIN_ADRESS + " TEXT, "
+                + COLUMN_ORIGIN_LATITUDE + " REAL, "
+                + COLUMN_ORIGIN_LONGITUDE + " REAL, "
+                + COLUMN_DESTINATION_ADRESS + " TEXT, "
+                + COLUMN_DESTINATION_LATITUDE + " REAL, "
+                + COLUMN_DESTINATION_LONGITUDE + " REAL, "
+                + COLUMN_DURATION + " INTEGER, "
+                + COLUMN_REAL_DURATION + " INTEGER, "
                 + COLUMN_RINGTONE + " TEXT NOT NULL, "
                 + COLUMN_VIBRATES + " INTEGER NOT NULL, "
                 + COLUMN_ENABLED + " INTEGER NOT NULL, "

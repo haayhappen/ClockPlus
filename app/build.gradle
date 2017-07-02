@@ -15,6 +15,9 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 
 android {
+    defaultConfig{
+        multiDexEnabled true
+    }
     /*
     signingConfigs {
         config {
@@ -25,7 +28,6 @@ android {
         }
     }
     */
-    useLibrary  'org.apache.http.legacy'
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -40,11 +42,12 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             applicationIdSuffix ".debug"
+
         }
     }
 }
@@ -71,5 +74,7 @@ dependencies {
     compile project(":bottomsheetpickers-release")
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.google.android.gms:play-services:10.0.1'
+    compile 'agency.tango.android:material-intro-screen:0.0.5'
     testCompile 'junit:junit:4.12'
+
 }
