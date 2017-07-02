@@ -315,7 +315,6 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
                 int delayHours = delayMinutes / 60;
                 delayMinutes = delayMinutes % 60;
 
-
                 Date d = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                 try {
