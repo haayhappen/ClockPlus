@@ -23,7 +23,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -32,18 +31,12 @@ import com.haayhappen.clockplus.R;
 import com.haayhappen.clockplus.alarms.Alarm;
 import com.haayhappen.clockplus.alarms.misc.AlarmController;
 import com.haayhappen.clockplus.location.DistanceHandler;
-import com.haayhappen.clockplus.location.Location;
 import com.haayhappen.clockplus.util.ContentIntentUtils;
 import com.haayhappen.clockplus.util.ParcelableUtil;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static android.app.PendingIntent.FLAG_ONE_SHOT;
-import static com.haayhappen.clockplus.R.string.alarm;
 import static com.haayhappen.clockplus.util.TimeFormatUtils.formatTime;
 
 // TODO: Consider registering this locally instead of in the manifest.
@@ -58,6 +51,7 @@ public class UpcomingAlarmReceiver extends BroadcastReceiver {
     //public static final String EXTRA_ALARM = "com.haayhappen.clockplus.extra.ALARM";
 
     private AlarmController mAlarmController;
+
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
