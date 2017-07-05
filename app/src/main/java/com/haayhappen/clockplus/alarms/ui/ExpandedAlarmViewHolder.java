@@ -24,10 +24,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Vibrator;
 import android.support.annotation.IdRes;
-import android.support.annotation.Nullable;
 import android.support.v4.graphics.drawable.DrawableCompat;
-import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -309,9 +306,10 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
         DistanceHandler asyncTask = new DistanceHandler(getAlarm(), new DistanceHandler.AsyncResponse() {
             @Override
             public void processFinish(long delaySecs) {
-                int testseconds = 4000;
+                //int testseconds = 4000;
                 final Alarm oldAlarm = getAlarm();
-                int delayMinutes = (int) TimeUnit.SECONDS.toMinutes(testseconds);
+                int delayMinutes = (int) TimeUnit.SECONDS.toMinutes(delaySecs);
+                Log.d(TAG, "delayminutes: "+delayMinutes);
                 int delayHours = delayMinutes / 60;
                 delayMinutes = delayMinutes % 60;
 
@@ -326,9 +324,6 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
                 //TODO remove all debug logs for production
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(d);
-                Log.d(TAG, "calendar time before new set: " + cal.getTime().toString());
-                Log.d(TAG, "hours to be subtracted: " + delayHours);
-                Log.d(TAG, "minutes to be subtracted: " + delayMinutes);
 
                 if (delayHours == 0) {
                     cal.add(Calendar.MINUTE, -Math.abs(delayMinutes));
@@ -336,10 +331,6 @@ public class ExpandedAlarmViewHolder extends BaseAlarmViewHolder {
                     cal.add(Calendar.HOUR_OF_DAY, -Math.abs(delayHours));
                     cal.add(Calendar.MINUTE, -Math.abs(delayMinutes));
                 }
-
-                Log.d(TAG, "calendar time after set: " + cal.getTime().toString());
-                Log.d(TAG, "setting new hours to: " + cal.get(Calendar.HOUR_OF_DAY));
-                Log.d(TAG, "setting new minutes to: " + cal.get(Calendar.MINUTE));
 
                 //TODO Update Alarm depending what is set in the preferences (example: 1 hour)
 //                Alarm newAlarm = oldAlarm.toBuilder()

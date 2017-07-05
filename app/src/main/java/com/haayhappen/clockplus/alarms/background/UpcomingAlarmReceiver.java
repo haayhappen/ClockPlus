@@ -129,11 +129,12 @@ public class UpcomingAlarmReceiver extends BroadcastReceiver {
                     int delayMinutes = (int) TimeUnit.SECONDS.toMinutes(testseconds);
 
                     if (delayMinutes < minutesUntilRing) {
-                        if (!alarm.isRescheduled()) {
+                        Log.d(TAG, "Alarm: "+ alarm.toString()+" rescheduled? : "+alarm.reschedules());
+                        if (!alarm.reschedules()) {
                             Alarm newAlarm = alarm.toBuilder()
                                     .minutes(minutesUntilRing - delayMinutes)
+                                    .reschedules(true)
                                     .build();
-                            alarm.setRescheduled(true);
                             alarm.copyMutableFieldsTo(newAlarm);
                             persistUpdatedAlarm(newAlarm, false);
                             Log.d(TAG, "Rescheduled alarm, so user will be waked up earlier.");

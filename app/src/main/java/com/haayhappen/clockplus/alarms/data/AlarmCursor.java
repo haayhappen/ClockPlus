@@ -57,6 +57,7 @@ public class AlarmCursor extends BaseItemCursor<Alarm> {
                 .hour(getInt(getColumnIndexOrThrow(AlarmsTable.COLUMN_HOUR)))
                 .minutes(getInt(getColumnIndexOrThrow(AlarmsTable.COLUMN_MINUTES)))
                 .vibrates(isTrue(AlarmsTable.COLUMN_VIBRATES))
+                .reschedules(isTrue(AlarmsTable.COLUMN_RESCHEDULED))
                 .ringtone(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_RINGTONE)))
                 .label(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_LABEL)))
                 .origin(new Location(getString(getColumnIndexOrThrow(AlarmsTable.COLUMN_ORIGIN_ADRESS)),
@@ -70,7 +71,7 @@ public class AlarmCursor extends BaseItemCursor<Alarm> {
                 .build();
         alarm.setId(getLong(getColumnIndexOrThrow(AlarmsTable.COLUMN_ID)));
         alarm.setEnabled(isTrue(AlarmsTable.COLUMN_ENABLED));
-        alarm.setRescheduled(isTrue(AlarmsTable.COLUMN_RESCHEDULED));
+        //alarm.setReschedules(isTrue(AlarmsTable.COLUMN_RESCHEDULED));
         alarm.setSnoozing(getLong(getColumnIndexOrThrow(AlarmsTable.COLUMN_SNOOZING_UNTIL_MILLIS)));
         alarm.setRecurring(SUNDAY, isTrue(AlarmsTable.COLUMN_SUNDAY));
         alarm.setRecurring(MONDAY, isTrue(AlarmsTable.COLUMN_MONDAY));

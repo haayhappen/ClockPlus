@@ -28,7 +28,7 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
     private boolean enabled;
     private final boolean[] recurringDays = new boolean[NUM_DAYS];
     private boolean ignoreUpcomingRingTime;
-    private boolean rescheduled;
+    //private boolean rescheduled;
     // ====================================================
 
 
@@ -50,6 +50,8 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
 
     public abstract boolean vibrates();
 
+    public abstract boolean reschedules();
+
 
     /**
      * Initializes a Builder to the same property values as this instance
@@ -67,7 +69,6 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
         target.enabled = this.enabled;
         System.arraycopy(this.recurringDays, 0, target.recurringDays, 0, NUM_DAYS);
         target.ignoreUpcomingRingTime = this.ignoreUpcomingRingTime;
-        target.rescheduled = this.rescheduled;
     }
 
     public static Builder builder() {
@@ -82,17 +83,18 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
                 .duration(0)
                 .realDuration(0)
                 .ringtone("")
-                .vibrates(false);
+                .vibrates(false)
+                .reschedules(false);
 
     }
 
-    public boolean isRescheduled() {
-        return rescheduled;
-    }
+    //public boolean isRescheduled() {
+    //      return rescheduled;
+    //}
 
-    public void setRescheduled(boolean rescheduled) {
-        this.rescheduled = rescheduled;
-    }
+    //public void setRescheduled(boolean rescheduled) {
+    //  this.rescheduled = rescheduled;
+    //}
 
     public void snooze(int minutes) {
         if (minutes <= 0 || minutes > MAX_MINUTES_CAN_SNOOZE)
@@ -269,6 +271,7 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
         dest.writeLong(realDuration());
         dest.writeString(ringtone());
         dest.writeInt(vibrates() ? 1 : 0);
+        dest.writeInt(reschedules() ? 1 : 0);
         // Mutable fields must be written after the immutable fields,
         // because when we recreate the object, we can't initialize
         // those mutable fields until after we call build(). Values
@@ -276,7 +279,6 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
         dest.writeLong(getId());
         dest.writeLong(snoozingUntilMillis);
         dest.writeInt(enabled ? 1 : 0);
-        dest.writeInt(rescheduled ? 1 : 0); //NEW added 02.07.17 21:44
         dest.writeBooleanArray(recurringDays);
         dest.writeInt(ignoreUpcomingRingTime ? 1 : 0);
     }
@@ -292,11 +294,11 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
                 .realDuration(in.readLong())
                 .ringtone(in.readString())
                 .vibrates(in.readInt() != 0)
+                .reschedules(in.readInt() != 0)
                 .build();
         alarm.setId(in.readLong());
         alarm.snoozingUntilMillis = in.readLong();
         alarm.enabled = in.readInt() != 0;
-        alarm.rescheduled = in.readInt() != 0;
         in.readBooleanArray(alarm.recurringDays);
         alarm.ignoreUpcomingRingTime = in.readInt() != 0;
         return alarm;
@@ -337,7 +339,7 @@ public abstract class Alarm extends ObjectWithId implements Parcelable {
 
         public abstract Builder vibrates(boolean vibrates);
 
-        //public abstract Builder reschedules(boolean reschedules);
+        public abstract Builder reschedules(boolean reschedules);
 
         /* package */
         abstract Alarm autoBuild();
