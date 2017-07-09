@@ -123,6 +123,8 @@ public class DistanceHandler extends AsyncTask<String, Void, Long> {
 
             durationInTrafficLong = Long.parseLong(jsonDurationInTraffic.get("value").toString());
 
+            Log.d(TAG,"Duration normal: "+ durationLong);
+            Log.d(TAG,"Duration in traffic: "+ durationInTrafficLong);
             //Get delay if one exists:
             if (durationInTrafficLong > durationLong){
                 try{
@@ -134,12 +136,15 @@ public class DistanceHandler extends AsyncTask<String, Void, Long> {
             }
             else{
                 //there is no delay
-                delay = Long.parseLong(jsonDuration.get("value").toString());
+                //delay = Long.parseLong(jsonDuration.get("value").toString());
+
+                delay = 0l;
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.d(TAG,"Returning delay of : "+ delay+" seconds");
         return delay;
     }
 

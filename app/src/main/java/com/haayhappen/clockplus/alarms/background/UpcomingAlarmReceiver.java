@@ -118,34 +118,58 @@ public class UpcomingAlarmReceiver extends BroadcastReceiver {
                 nm.notify(TAG, (int) id, note);
             }
         }
-        //Check that alarm rings within 1 hours
-        if (alarm.ringsWithinHours(1)) {
+       // Check that alarm rings within 1 hours
+        if (alarm.ringsWithinHours(1) && !alarm.reschedules()) {
             mAlarmController = new AlarmController(context, null);
             DistanceHandler asyncTask = new DistanceHandler(alarm, new DistanceHandler.AsyncResponse() {
                 @Override
                 public void processFinish(long delaySecs) {
+                    String newRingtime ="";
                     int minutesUntilRing = (int) TimeUnit.MILLISECONDS.toMinutes(alarm.ringsIn());
                     int testseconds = 240;
                     int delayMinutes = (int) TimeUnit.SECONDS.toMinutes(testseconds);
+                    int ringsAtMinutes = (int) ((alarm.ringsAt() / (1000*60)) % 60);
 
+                    //check that delay is less than the alarm is actually away in terms of time
                     if (delayMinutes < minutesUntilRing) {
                         Log.d(TAG, "Alarm: "+ alarm.toString()+" rescheduled? : "+alarm.reschedules());
-                        if (!alarm.reschedules()) {
+                        //if (!alarm.reschedules()) {
+                        //subtract delay minutes from ringing minutes
+                        if (ringsAtMinutes < delayMinutes){
+                            //that would happen when the ring time is set right after a new hour started...we have to adjust the hour too then
+                            int restmin = ringsAtMinutes-delayMinutes;
+                            int newmin = 60 - Math.abs(restmin);
+                            int newhour = alarm.hour() -1;
+
                             Alarm newAlarm = alarm.toBuilder()
-                                    .minutes(minutesUntilRing - delayMinutes)
+                                    .minutes(newmin)
+                                    .hour(newhour)
                                     .reschedules(true)
                                     .build();
                             alarm.copyMutableFieldsTo(newAlarm);
                             persistUpdatedAlarm(newAlarm, false);
-                            Log.d(TAG, "Rescheduled alarm, so user will be waked up earlier.");
+
+                            newRingtime += newhour+":"+newmin;
+
+                        }else {
+                            //no hours to schedules
+                            Alarm newAlarm = alarm.toBuilder()
+                                    .minutes(ringsAtMinutes - delayMinutes)
+                                    .reschedules(true)
+                                    .build();
+                            alarm.copyMutableFieldsTo(newAlarm);
+                            persistUpdatedAlarm(newAlarm, false);
+                            newRingtime +=  alarm.hour()+":"+(ringsAtMinutes - delayMinutes);
                         }
+                            Log.d(TAG, "Rescheduled alarm, so user will be waked up earlier.");
+                       // }
 
 
                         NotificationCompat.Builder builder =
                                 new NotificationCompat.Builder(context)
                                         .setSmallIcon(R.drawable.ic_alarm_24dp)
                                         .setContentTitle("TrafficAlarm")
-                                        .setContentText("Alarm has been rescheduled: " + (minutesUntilRing - delayMinutes) + " minutes");
+                                        .setContentText("Alarm rescheduled, new ringtime: "+newRingtime );
 
                         // Add as notification
                         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -161,6 +185,53 @@ public class UpcomingAlarmReceiver extends BroadcastReceiver {
                 e.getMessage();
             }
         }
+
+        //TODO FOR TESTING
+        Log.d(TAG, "alarm ringing in: " + alarm.ringsIn());
+        //180000 = 3 minutes -> if alarm rings in less than 3 minutes and isn't rescheduled
+//        if (alarm.ringsIn() < 180000 && !alarm.reschedules()) {
+//            mAlarmController = new AlarmController(context, null);
+//            DistanceHandler asyncTask = new DistanceHandler(alarm, new DistanceHandler.AsyncResponse() {
+//                @Override
+//                public void processFinish(long delaySecs) {
+//                    int minutesUntilRing = (int) TimeUnit.MILLISECONDS.toMinutes(alarm.ringsIn());
+//                    int testseconds = 120;
+//                    int delayMinutes = (int) TimeUnit.SECONDS.toMinutes(testseconds);
+//
+//                    if (delayMinutes < minutesUntilRing) {
+//                        Log.d(TAG, "Alarm: " + alarm.toString() + " rescheduled? : " + alarm.reschedules());
+//                        //if (!alarm.reschedules()) {
+//                            Alarm newAlarm = alarm.toBuilder()
+//                                    .minutes(minutesUntilRing - delayMinutes)
+//                                    .reschedules(true)
+//                                    .build();
+//                            alarm.copyMutableFieldsTo(newAlarm);
+//                            persistUpdatedAlarm(newAlarm, false);
+//                            Log.d(TAG, "Rescheduled alarm, so user will be waked up earlier.");
+//                       // }
+//
+//
+//                        NotificationCompat.Builder builder =
+//                                new NotificationCompat.Builder(context)
+//                                        .setSmallIcon(R.drawable.ic_alarm_24dp)
+//                                        .setContentTitle("TrafficAlarm")
+//                                        .setContentText("Alarm has been rescheduled: " + (minutesUntilRing - delayMinutes) + " minutes");
+//
+//                        // Add as notification
+//                        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+//                        manager.notify(0, builder.build());
+//                    }
+//
+//                }
+//            });
+//
+//            try {
+//                asyncTask.execute();
+//            } catch (Exception e) {
+//                e.getMessage();
+//            }
+//        }
+
 
     }
 
